@@ -47,10 +47,11 @@ const Header = () => {
     navigate(MenuRouteConfig['0'].route);
   };
   return (
-    <div className="h-64 bg-slate-900 pl-60 flex justify-start items-center">
-      <Button variant="contained" onClick={handleHome}>
+    <div>
+      {/* <div className="h-64 bg-slate-900 pl-60 flex justify-start items-center"> */}
+      {/* <Button variant="contained" onClick={handleHome}>
         TezCard
-      </Button>
+      </Button> */}
       {/* <MenuPopupState text="babylon" routeKey={['28', '29', '30', '36']} />
       <MenuPopupState text="three" routeKey={['32', '37']} />
       <MenuPopupState text="react-three-fiber" routeKey={['34', '38']} />
