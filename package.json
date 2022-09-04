@@ -1,5 +1,5 @@
 {
-  "name": "tezcard",
+  "name": "tezcard1.0",
   "version": "1.0.0",
   "scripts": {
     "client:dev": "scripty",
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "tezcard",
+  "description": "tezcard1.0",
   "devDependencies": {
     "@swc/core": "^1.2.247",
     "@swc/helpers": "^0.4.11",
