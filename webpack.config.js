@@ -8,9 +8,6 @@ const WebpackBar = require('webpackbar');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const { ProvidePlugin } = require('webpack');
-// const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 const webpackBaseConfig = {
   entry: {
@@ -21,23 +18,15 @@ const webpackBaseConfig = {
   },
   cache: {
     type: 'filesystem',
-    // cacheDirectory: resolve(__dirname, '.temp'),
   },
-  // performance: {
-  //   maxAssetSize: 250000, // 最大资源大小250KB
-  //   maxEntrypointSize: 250000, // 最大入口资源大小250KB
-  //   hints: 'warning', // 超出限制时只给出警告
-  // },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        // include: '/node_modules/',
         use: {
           loader: 'swc-loader',
         },
       },
-      //test: /\.(png|woff|woff2|eot|ttf|svg)$/,
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/i,
         type: 'asset/resource',
@@ -45,7 +34,6 @@ const webpackBaseConfig = {
       {
         test: /\.css$/i,
         include: [resolve(__dirname, 'src'), resolve(__dirname, 'node_modules')],
-        // include: [resolve(__dirname, 'src')],
 
         use: [
           MiniCssExtractPlugin.loader,
@@ -53,9 +41,6 @@ const webpackBaseConfig = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              // modules: {
-              //   localIdentName: '[path]__[name]__[local]',
-              // },
             },
           },
           'postcss-loader',
@@ -65,10 +50,6 @@ const webpackBaseConfig = {
         test: /\.(png|jpg|svg)$/,
         type: 'asset',
       },
-      // {
-      //   resourceQuery: /raw-lingui/,
-      //   type: 'javascript/auto',
-      // },
     ],
   },
   optimization: {
@@ -115,7 +96,6 @@ const webpackBaseConfig = {
     },
   },
   resolve: {
-    // fallback: { url: false, os: false },
     alias: {
       '@components': resolve('src/web/components'),
       '@hooks': resolve('src/web/hooks'),
@@ -131,19 +111,14 @@ const webpackBaseConfig = {
     extensions: ['.js', '.ts', '.tsx', 'jsx', '.css'],
   },
   plugins: [
-    // new NodePolyfillPlugin(),
     new MiniCssExtractPlugin({
       filename: _modeflag ? 'styles/[name].[contenthash:5].css' : 'styles/[name].css',
       chunkFilename: _modeflag ? 'styles/[name].[contenthash:5].css' : 'styles/[name].css',
       ignoreOrder: false,
     }),
-    // new ProvidePlugin({
-    //   Buffer: ['buffer', 'Buffer'],
-    // }),
     new CleanWebpackPlugin(),
     new WebpackBar(),
     new Dotenv(),
-    // new BundleAnalyzerPlugin(),
   ],
 };
 module.exports = merge.default(webpackBaseConfig, _mergeConfig);

@@ -20,7 +20,6 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         parallel: os.cpus().length - 1,
-        // minify: TerserPlugin.esbuildMinify,
         terserOptions: {
           compress: {
             drop_console: true,
