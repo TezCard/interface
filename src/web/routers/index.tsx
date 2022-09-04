@@ -4,6 +4,7 @@ import Loading from '@components/Loading';
 import Home from '@pages/Home';
 import Header from '@components/Header';
 const TestZustand = lazy(() => import('@pages/TestZustand'));
+import { Nothing, NothingText } from './style';
 const Routes: RouteObject[] = [];
 const Layout = () => (
   <>
@@ -16,13 +17,14 @@ const Layout = () => (
 
 function NoMatch() {
   return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-      <div className="border border-sky-500">6767</div>
-    </div>
+    <Nothing>
+      <NothingText>Nothing to see here!</NothingText>
+      <NothingText>
+        <p>
+          <Link to="/">Go to the home page</Link>
+        </p>
+      </NothingText>
+    </Nothing>
   );
 }
 

@@ -15,9 +15,9 @@ body {
 #root {
   height: 100%;
 }
-a {
+/* a {
   color: var(--aColor);
-}
+} */
 .contentRoot {
   height: calc(100vh - var(--headerHeight));
 }
