@@ -1,1 +1,1 @@
-webpack --mode production
+webpack --mode production --config=../../webpack.prod.js
