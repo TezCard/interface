@@ -6,3 +6,6 @@ export const Container = styled.div`
   // height: calc(100vh - 64px);
   height: 100vh;
 `;
+export const Slogan = styled.div`
+  color: #fafafa;
+`;
