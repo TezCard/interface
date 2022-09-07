@@ -34,7 +34,7 @@ const Header = () => {
           useRequestCache={false}
           wrapper="span"
         />
-        <Button variant="contained" style={walletButtonStyle}>
+        <Button className="w-146 h-36" variant="contained" style={walletButtonStyle}>
           Collect Wallet
         </Button>
       </RightBtn>

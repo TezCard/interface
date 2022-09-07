@@ -11,8 +11,8 @@ export const TopHeader = styled.div`
 `;
 export const Slogan = styled.div`
   height: 80px;
-  width: 272px;
-  background-image: url(./public/slogan.png);
+  width: 150px;
+  background-image: url(./public/logo.png);
   background-size: 100% 100%;
 `;
 export const RightBtn = styled.div`
@@ -25,4 +25,5 @@ export const RightBtn = styled.div`
 export const walletButtonStyle = {
   background: '-webkit-linear-gradient(left, #3061E8, #3AD9E3)',
   borderRadius: 'var(--borderRadius)',
+  textTransform: 'none',
 };
