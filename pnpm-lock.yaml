@@ -62,6 +62,7 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   react-router-dom: ^6.3.0
+  react-svg: ^15.1.7
   react-tooltip: ^4.2.21
   recoil: ^0.7.5
   regenerator-runtime: ^0.13.9
@@ -105,6 +106,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
+  react-svg: 15.1.7_biqbaboplfbrettd7655fr4n2y
   react-tooltip: 4.2.21_biqbaboplfbrettd7655fr4n2y
   recoil: 0.7.5_biqbaboplfbrettd7655fr4n2y
   three: 0.144.0
@@ -1703,6 +1705,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@tanem/svg-injector/10.1.32:
+    resolution: {integrity: sha512-fu1lx9D1D9I55i8lXH9r8b9malXmkvNH2ZdNI6MTEBVs0DCFJJiy6iz/Scm5Lp2RriSuNjni8h32ojylyKPsJQ==}
+    dependencies:
+      '@babel/runtime': 7.18.9
+      content-type: 1.0.4
+      tslib: 2.4.0
+    dev: false
 
   /@taquito/http-utils/13.0.1:
     resolution: {integrity: sha512-eHzd0HSL3qX6bOOSaQClm+0XmpbSNcJP69uzaBJwfXo7ntQR1bUfGLn6+1Hgsk/lJ0JxakD2PDA4aaeajHvyPw==}
@@ -7504,6 +7514,20 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-svg/15.1.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-xEjh2CU9g1fSjkbIR59YwZCxOINbXq9/L+AdUW1ac4dbHoBxsMGktF1S8DRqVNlFMQIDUENAoXhWiRw6y3RaTA==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.18.9
+      '@tanem/svg-injector': 10.1.32
+      '@types/prop-types': 15.7.5
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /react-tooltip/4.2.21_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-zSLprMymBDowknr0KVDiJ05IjZn9mQhhg4PRsqln0OZtURAJ1snt1xi5daZfagsh6vfsziZrc9pErPTDY1ACig==}
     engines: {npm: '>=6.13'}
@@ -8451,7 +8475,6 @@ packages:
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
-    dev: true
 
   /tsscmp/1.0.6:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}

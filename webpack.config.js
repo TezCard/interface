@@ -1,10 +1,12 @@
 const { resolve } = require('path');
+const path = require('path');
 const merge = require('webpack-merge');
 const argv = require('yargs-parser')(process.argv.slice(2));
 const _mode = argv.mode || 'development';
 const _mergeConfig = require(`./config/webpack.${_mode}.js`);
 const _modeflag = _mode === 'production' ? true : false;
 const WebpackBar = require('webpackbar');
+const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -102,6 +104,7 @@ const webpackBaseConfig = {
       '@pages': resolve('src/web/pages'),
       '@layouts': resolve('src/web/layouts'),
       '@assets': resolve('src/web/assets'),
+      '@images': resolve('src/web/images'),
       '@store': resolve('src/web/store'),
       '@service': resolve('src/web/service'),
       '@utils': resolve('src/web/utils'),
@@ -111,6 +114,9 @@ const webpackBaseConfig = {
     extensions: ['.js', '.ts', '.tsx', 'jsx', '.css'],
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [{ from: 'public', to: path.join(__dirname, '/dist/public') }],
+    }),
     new MiniCssExtractPlugin({
       filename: _modeflag ? 'styles/[name].[contenthash:5].css' : 'styles/[name].css',
       chunkFilename: _modeflag ? 'styles/[name].[contenthash:5].css' : 'styles/[name].css',

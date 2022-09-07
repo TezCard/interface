@@ -7,12 +7,12 @@ const TestZustand = lazy(() => import('@pages/TestZustand'));
 import { Nothing, NothingText } from './style';
 const Routes: RouteObject[] = [];
 const Layout = () => (
-  <>
+  <div className="w-1280 m-auto">
     <Header />
     <Suspense fallback={<Loading />}>
       <Outlet />
     </Suspense>
-  </>
+  </div>
 );
 
 function NoMatch() {
