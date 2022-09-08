@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 export const Container = styled.div`
   background: var(--bgColor);
-  height: calc(100vh - 80px);
+  height: calc(100vh - var(--headerHeight));
 `;
 export const Content = styled.div``;
 export const Slogan = styled.div``;

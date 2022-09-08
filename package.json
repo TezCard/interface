@@ -81,11 +81,14 @@
     "earcut": "^2.2.4",
     "gsap": "^3.11.1",
     "immer": "9.0.15",
+    "ipfs-core": "^0.15.4",
     "jotai": "^1.8.2",
     "js-cookie": "^3.0.1",
     "koa": "^2.13.4",
     "koa-static": "^5.0.0",
     "material-ui-popup-state": "^4.0.2",
+    "mocha": "^10.0.0",
+    "node-fetch": "^3.2.10",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -94,6 +97,7 @@
     "react-tooltip": "^4.2.21",
     "recoil": "^0.7.5",
     "three": "^0.144.0",
+    "undici": "^5.10.0",
     "zustand": "4.1.1"
   }
 }

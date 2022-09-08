@@ -2,12 +2,13 @@ import { lazy, Suspense } from 'react';
 import { Link, RouteObject, Outlet } from 'react-router-dom';
 import Loading from '@components/Loading';
 import Home from '@pages/Home';
+import Dao from '@pages/Dao';
 import Header from '@components/Header';
 const TestZustand = lazy(() => import('@pages/TestZustand'));
 import { Nothing, NothingText } from './style';
 const Routes: RouteObject[] = [];
 const Layout = () => (
-  <div className="w-1280 m-auto">
+  <div className="m-auto">
     <Header />
     <Suspense fallback={<Loading />}>
       <Outlet />
@@ -33,6 +34,7 @@ const mainRoutes = {
   element: <Layout />,
   children: [
     { index: true, element: <Home /> },
+    { path: '/dao', element: <Dao /> },
     { path: '/loading', element: <Loading /> },
     { path: '/testZustand', element: <TestZustand /> },
     { path: '*', element: <NoMatch /> },

@@ -1,10 +1,15 @@
 import { memo, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { Container, Content, Slogan, SloganDesc, getStartBtn, DownLoadDeck } from './style';
+import { useNavigate } from 'react-router-dom';
+import { MenuRouteConfig } from '@constants/MenuRouteConfig';
 
 function Home() {
+  const navigate = useNavigate();
   useEffect(() => {}, []);
-
+  const handleGoDao = () => {
+    navigate(MenuRouteConfig?.dao?.route);
+  };
   return (
     <Container className="flex flex-col justify-center items-center w-full">
       <Content className="w-full h-292 flex flex-col justify-between items-center">
@@ -13,6 +18,7 @@ function Home() {
         <Button
           className="w-190 h-68 text-center leading-[68px] text-[16px] mb-20"
           style={getStartBtn}
+          onClick={handleGoDao}
         >
           GET STARTED
         </Button>
