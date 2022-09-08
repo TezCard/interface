@@ -14,22 +14,13 @@ import {
   SkillItem,
 } from './style';
 import { ReactSVG } from 'react-svg';
+import NormalTag from '@components/NormalTag';
 export type ItemTypt = 'Builder' | 'Core' | 'Inversor' | 'Project Manager';
 const tags: ItemTypt[] = ['Builder', 'Core', 'Inversor', 'Project Manager'];
 const skills = ['UI Design', 'PM', 'Frontend'];
 const members = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const DaoMember = () => {
-  const renderTag = (item: ItemTypt) => {
-    return (
-      <TagItem
-        key={item}
-        className="h-22 px-12 leading-[22px] border border-[#D0D5DD] rounded-[2px] mb-4 mr-6 text-[14px] text-[#667085]"
-      >
-        {item}
-      </TagItem>
-    );
-  };
   const renderSkills = (item, index: number) => {
     const bgColor = index % 2 === 0 ? 'bg-[#55A3FF]' : 'bg-[#13D6E2]';
     return (
@@ -52,7 +43,11 @@ const DaoMember = () => {
                 <Name className="h-44 leading-[44px] text-[20px] text-[#101828] font-bold">
                   Wang Teng
                 </Name>
-                <Tags>{tags.map(item => renderTag(item))}</Tags>
+                <Tags>
+                  {tags.map(i => (
+                    <NormalTag item={i} />
+                  ))}
+                </Tags>
               </RightInfo>
             </MemberInfo>
             <Skills className="h-50 mt-30 mb-24">

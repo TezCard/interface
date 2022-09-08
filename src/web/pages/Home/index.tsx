@@ -10,6 +10,9 @@ function Home() {
   const handleGoDao = () => {
     navigate(MenuRouteConfig?.dao?.route);
   };
+  const handleGoProfile = () => {
+    navigate(MenuRouteConfig?.profile?.route);
+  };
   return (
     <Container className="flex flex-col justify-center items-center w-full">
       <Content className="w-full h-292 flex flex-col justify-between items-center">
@@ -26,6 +29,12 @@ function Home() {
           (Download the latest PDF Pitch Deck)
         </DownLoadDeck>
       </Content>
+      <div className="bg-[#f48]" onClick={handleGoDao}>
+        test -- go page of dao
+      </div>
+      <div className="bg-[#f48]" onClick={handleGoProfile}>
+        test -- go page of profile
+      </div>
     </Container>
   );
 }
