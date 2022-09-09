@@ -4,7 +4,8 @@ import { ReactSVG } from 'react-svg';
 import { LeftAvatar, MiddleInfo, RightInfo, ProfileLogo, EditBtn } from './style';
 import NormalTag from '@components/NormalTag';
 import ProfileDialog from '@components/ProfileDialog';
-import ContentTabs from './Tabs';
+import DaosTab from './DaosTab';
+import SbtsTab from './SbtsTab';
 const tags = ['Builder', 'Core', 'Inversor', 'Project Manager'];
 const skills = ['UI Design', 'UI Design', 'UI Design', 'PM', 'Frontend', 'Skills4'];
 
@@ -174,9 +175,11 @@ function Profile() {
         </RightInfo>
       </MainCard>
       <Dao className="mt-18">
-        <ContentTabs />
+        <DaosTab />
       </Dao>
-      <Sbt></Sbt>
+      <Sbt>
+        <SbtsTab />
+      </Sbt>
       <ProfileDialog ref={profileRef} />
     </Container>
   );

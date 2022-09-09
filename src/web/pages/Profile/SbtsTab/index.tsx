@@ -3,18 +3,17 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import DaoCard from '@components/DaoCard';
+import SbtCard from '@components/SbtCard';
 import { styled } from '@mui/material/styles';
-import { DaoTabs, AddDao } from './style';
+import { Sbt } from './style';
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
-const daoNum = [1, 2, 3, 4, 5];
 
-const ContentTabs = () => {
+const SbtsTab = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -48,7 +47,7 @@ const ContentTabs = () => {
     };
   }
   return (
-    <DaoTabs>
+    <Sbt>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider', texttransform: 'none' }}>
           <Tabs
@@ -57,23 +56,16 @@ const ContentTabs = () => {
             aria-label="Tabs where selection follows focus"
             selectionFollowsFocus
           >
-            <Tab label="Dao 2" {...a11yProps(0)} />
+            <Tab label="My SBT" {...a11yProps(0)} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <div className="mt-35 flex">
-            <AddDao className="w-158 h-158 mr-30 rounded-[14px] bg-[#fff] flex justify-center items-center">
-              <img width="48" height="39" src="/public/addDao.png" alt="addDao" />
-            </AddDao>
-            <div className="w-full flex justify-between flex-wrap">
-              {daoNum.map((item, index) => (
-                <DaoCard key={index} />
-              ))}
-            </div>
+          <div className="mt-44">
+            <SbtCard />
           </div>
         </TabPanel>
       </Box>
-    </DaoTabs>
+    </Sbt>
   );
 };
-export default memo(ContentTabs);
+export default memo(SbtsTab);
