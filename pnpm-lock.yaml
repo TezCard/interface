@@ -9,6 +9,7 @@ specifiers:
   '@koa/router': ^12.0.0
   '@mmfcc/home': 1.7.1
   '@mmfcc/hooks': 1.9.6
+  '@mui/icons-material': ^5.10.3
   '@mui/material': ^5.10.3
   '@swc/core': ^1.2.247
   '@swc/helpers': ^0.4.11
@@ -96,6 +97,7 @@ dependencies:
   '@koa/router': 12.0.0
   '@mmfcc/home': 1.7.1
   '@mmfcc/hooks': 1.9.6_jmeotboeqduv4ejs6dufhmbm6a
+  '@mui/icons-material': 5.10.3_uvkfhlgw25w6lhmyous67zd66u
   '@mui/material': 5.10.3_vbxcdxy3bftsefaguotlgalomu
   '@type-challenges/utils': 0.1.1
   earcut: 2.2.4
@@ -2009,6 +2011,23 @@ packages:
 
   /@mui/core-downloads-tracker/5.10.3:
     resolution: {integrity: sha512-mX2S0d1oboKBbWQqWIgRmyALAEzh37yiknpD3mKx8bcoMKbp1VtqzIt0aeHP16Uhsd0eValDFILxLNHWi0oddQ==}
+    dev: false
+
+  /@mui/icons-material/5.10.3_uvkfhlgw25w6lhmyous67zd66u:
+    resolution: {integrity: sha512-o0kbUlsWCBtCE0wP33cGKbyryCh7kpm2EECYMPDmWrLhbA+HUODXIdhiTFS26szp2xXo9HY1lEx0ufeJ+tddYw==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.18.9
+      '@mui/material': 5.10.3_vbxcdxy3bftsefaguotlgalomu
+      '@types/react': 18.0.18
+      react: 18.2.0
     dev: false
 
   /@mui/material/5.10.3_vbxcdxy3bftsefaguotlgalomu:

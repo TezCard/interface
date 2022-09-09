@@ -1,22 +1,34 @@
-import { memo, useState, useEffect } from 'react';
-
+import { memo, useState, useEffect, useRef } from 'react';
 import { Container, MainCard, Dao, Sbt } from './style';
 import { ReactSVG } from 'react-svg';
 import { LeftAvatar, MiddleInfo, RightInfo, ProfileLogo, EditBtn } from './style';
 import NormalTag from '@components/NormalTag';
+import ProfileDialog from '@components/ProfileDialog';
 import ContentTabs from './Tabs';
 const tags = ['Builder', 'Core', 'Inversor', 'Project Manager'];
 const skills = ['UI Design', 'UI Design', 'UI Design', 'PM', 'Frontend', 'Skills4'];
 
 function Profile() {
-  useEffect(() => {}, []);
+  const profileRef = useRef(null);
+  useEffect(() => {
+    profileRef?.current?.handleClickOpen('paper')();
+  }, []);
+  const handleEditClick = () => {
+    console.log(profileRef?.current);
+    profileRef?.current?.handleClickOpen('paper')();
+  };
 
   return (
     <Container className="w-1280 m-auto mt-80">
       <MainCard className="h-282 flex">
         <LeftAvatar className="w-152 h-202 flex flex-col justify-between items-center">
           <ProfileLogo className="w-152 h-152 mb-20"></ProfileLogo>
-          <EditBtn className="w-50 h-32 text-center text-[14px] leading-[32px]">Edit</EditBtn>
+          <EditBtn
+            className="w-50 h-32 text-center text-[14px] leading-[32px]"
+            onClick={handleEditClick}
+          >
+            Edit
+          </EditBtn>
         </LeftAvatar>
         <MiddleInfo className="ml-38">
           <div className="h-44 mt-30 text-[32px] text-[#101828]">Win</div>
@@ -165,6 +177,7 @@ function Profile() {
         <ContentTabs />
       </Dao>
       <Sbt></Sbt>
+      <ProfileDialog ref={profileRef} />
     </Container>
   );
 }
