@@ -108,10 +108,16 @@ const webpackBaseConfig = {
       '@store': resolve('src/web/store'),
       '@service': resolve('src/web/service'),
       '@utils': resolve('src/web/utils'),
+      '@type': resolve('src/web/type'),
       '@lib': resolve('src/web/lib'),
       '@constants': resolve('src/web/constants'),
     },
     extensions: ['.js', '.ts', '.tsx', 'jsx', '.css'],
+    fallback: {
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      path: require.resolve('path-browserify'),
+    },
   },
   plugins: [
     new CopyPlugin({
