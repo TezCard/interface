@@ -6,3 +6,18 @@ export type StoreType = {
   balance?: number;
   isConnected?: boolean;
 };
+export type ProfileInfoType = {
+  name: string;
+  desc: string;
+  email: string;
+  github: string;
+  interest: string[];
+  level1: string;
+  level2: string;
+  level3: string;
+  skill1: string;
+  skill2: string;
+  skill3: string;
+  twitter: string;
+  website: string;
+};

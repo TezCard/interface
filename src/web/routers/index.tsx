@@ -5,7 +5,8 @@ import Home from '@pages/Home';
 import Dao from '@pages/Dao';
 import Profile from '@pages/Profile';
 import Header from '@components/Header';
-const TestZustand = lazy(() => import('@pages/TestZustand'));
+// const Profile = lazy(() => import('@pages/Profile'));
+// const Dao = lazy(() => import('@pages/Dao'));
 import { Nothing, NothingText } from './style';
 const Routes: RouteObject[] = [];
 const Layout = () => (
@@ -38,7 +39,6 @@ const mainRoutes = {
     { path: '/dao', element: <Dao /> },
     { path: '/profile', element: <Profile /> },
     { path: '/loading', element: <Loading /> },
-    { path: '/testZustand', element: <TestZustand /> },
     { path: '*', element: <NoMatch /> },
   ],
 };

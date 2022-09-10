@@ -4,15 +4,57 @@ import { ReactSVG } from 'react-svg';
 import { LeftAvatar, MiddleInfo, RightInfo, ProfileLogo, EditBtn } from './style';
 import NormalTag from '@components/NormalTag';
 import ProfileDialog from '@components/ProfileDialog';
+import { getSmallAddress } from '@utils/returnSmallAddress';
+import { useImmer } from '@hooks/useImmer';
+import { store } from '@store/jotaiStore';
+import { useAtom } from 'jotai';
 import DaosTab from './DaosTab';
 import SbtsTab from './SbtsTab';
-const tags = ['Builder', 'Core', 'Inversor', 'Project Manager'];
-const skills = ['UI Design', 'UI Design', 'UI Design', 'PM', 'Frontend', 'Skills4'];
+
+export type ProfileData = {
+  name: string;
+  avatar: string;
+  info: string;
+  roles: string[];
+  skills: string[];
+  interests: string[];
+};
 
 function Profile() {
   const profileRef = useRef(null);
+  const [profileData, setProfileData] = useImmer<ProfileData>({
+    name: '',
+    avatar: '',
+    info: '',
+    roles: [],
+    skills: [],
+    interests: [],
+  });
+  const [obj, setObj] = useAtom(store);
+  const getProfileData = () => {
+    // mock data
+    const data = {
+      name: 'cutefcc',
+      avatar: 'xxx',
+      info: ' I am a UI designer with 7 years of work experience, I hope to learn more knowledge in WEB3.',
+      roles: ['Builder', 'Core', 'Inversor', 'Project Manager'],
+      skills: ['UI Design', 'PM', 'Frontend', 'Backend', 'Marketing'],
+      interests: ['UI Design', 'UI Design', 'UI Design', 'PM', 'Frontend', 'Skills4'],
+    };
+    setProfileData(draft => {
+      draft.name = data.name;
+      draft.avatar = data.avatar;
+      draft.info = data.info;
+      draft.roles = data.roles;
+      draft.skills = data.skills;
+      draft.interests = data.interests;
+    });
+    // todo: get profile data from api
+  };
   useEffect(() => {
     profileRef?.current?.handleClickOpen('paper')();
+    // get profile data
+    getProfileData();
   }, []);
   const handleEditClick = () => {
     console.log(profileRef?.current);
@@ -32,10 +74,9 @@ function Profile() {
           </EditBtn>
         </LeftAvatar>
         <MiddleInfo className="ml-38">
-          <div className="h-44 mt-30 text-[32px] text-[#101828]">Win</div>
+          <div className="h-44 mt-30 text-[32px] text-[#101828]">{profileData.name}</div>
           <div className="w-516 mt-5 mb-30 leading-[24px] text-[16px] text-[#667085]">
-            I am a UI designer with 7 years of work experience, I hope to learn more knowledge in
-            WEB3.
+            {profileData.info}
           </div>
           <div className="flex w-452">
             <div className="w-226 mr-30 flex flex-col h-103">
@@ -43,7 +84,7 @@ function Profile() {
                 Role
               </div>
               <div className="w-226">
-                {tags.map((item, index) => (
+                {profileData.roles.map((item, index) => (
                   <NormalTag item={item} key={item} />
                 ))}
               </div>
@@ -53,7 +94,7 @@ function Profile() {
                 Skills
               </div>
               <div className="w-246">
-                {skills.map((item, index) => (
+                {profileData.skills.map((item, index) => (
                   <NormalTag item={item} key={item + index} bgcolor={true} index={index} />
                 ))}
               </div>
@@ -143,7 +184,7 @@ function Profile() {
               wrapper="span"
             />
             <div className="w-160 h-20 leading-[20px] flex">
-              <span className="w-129 mr-10">0x3876…f94ead</span>
+              <span className="w-129 mr-10">{getSmallAddress(obj.address)}</span>
               <ReactSVG
                 beforeInjection={svg => {
                   svg.setAttribute('style', 'width: 20px');
@@ -167,7 +208,7 @@ function Profile() {
               Interests
             </div>
             <div className="w-246">
-              {skills.map((item, index) => (
+              {profileData.interests.map((item, index) => (
                 <NormalTag item={item} key={index} />
               ))}
             </div>

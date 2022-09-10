@@ -1,7 +1,16 @@
+import { MenuRouteConfig } from '@constants/MenuRouteConfig';
+import { useNavigate } from 'react-router-dom';
 import { Card } from './style';
 const DaoCard = () => {
+  const navigate = useNavigate();
+  const handleGoDao = () => {
+    navigate(MenuRouteConfig?.dao?.route);
+  };
   return (
-    <Card className="w-540 h-158 mb-20 flex justify-between rounded-[14px] bg-[#fff]">
+    <Card
+      onClick={handleGoDao}
+      className="w-540 h-158 mb-20 flex justify-between rounded-[14px] bg-[#fff]"
+    >
       <div className="w-140 h-full rounded-tl-[14px] rounded-bl-[14px] bg-[#f69]"></div>
       <div className="grow h-full pt-24 rounded-tr-[14px] rounded-br-[14px]">
         <div className="flex justify-between ml-30 mr-30">

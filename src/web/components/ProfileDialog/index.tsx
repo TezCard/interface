@@ -19,7 +19,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { Skills, Levels, Interests } from '@constants/index';
+import { ProfileInfoType } from '@type/index';
 import Chip from '@mui/material/Chip';
+import { useImmer } from '@hooks/useImmer';
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -30,34 +34,15 @@ const MenuProps = {
     },
   },
 };
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
+function getStyles(name: string, interest: readonly string[], theme: Theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      interest.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
-// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-//   '& .MuiDialogContent-root': {
-//     padding: theme.spacing(2),
-//   },
-//   '& .MuiDialogActions-root': {
-//     padding: theme.spacing(1),
-//   },
-// }));
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+
 export interface DialogTitleProps {
   id: string;
   children?: React.ReactNode;
@@ -91,17 +76,16 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 const ProfileDialog = forwardRef((props, ref) => {
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
+  const [formData, setFormData] = useImmer<ProfileInfoType>({ interest: [] });
   const theme = useTheme();
-  const [personName, setPersonName] = useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    );
+    setFormData(draft => {
+      draft.interest = typeof value === 'string' ? value.split(',') : value;
+    });
   };
 
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
@@ -126,7 +110,70 @@ const ProfileDialog = forwardRef((props, ref) => {
       }
     }
   }, [open]);
-
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.name = event.target.value;
+    });
+  };
+  const handleDescChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.desc = event.target.value;
+    });
+  };
+  const handleSkills1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.skill1 = event.target.value;
+    });
+  };
+  const handleSkills2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.skill2 = event.target.value;
+    });
+  };
+  const handleSkills3Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.skill3 = event.target.value;
+    });
+  };
+  const handleLevel1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.level1 = event.target.value;
+    });
+  };
+  const handleLevel2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.level2 = event.target.value;
+    });
+  };
+  const handleLevel3Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.level3 = event.target.value;
+    });
+  };
+  const handleTwitterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.twitter = event.target.value;
+    });
+  };
+  const handleWebsiteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.website = event.target.value;
+    });
+  };
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.email = event.target.value;
+    });
+  };
+  const handleGithubChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((draft: ProfileInfoType) => {
+      draft.github = event.target.value;
+    });
+  };
+  const handleSave = () => {
+    console.log('formData', formData);
+    // todo: save
+  };
   return (
     <div>
       {/* <Button onClick={handleClickOpen('paper')}>scroll=paper</Button>
@@ -157,10 +204,19 @@ const ProfileDialog = forwardRef((props, ref) => {
             </div>
             <div className="w-152 h-152 mb-50 rounded-[76px] bg-[#847]"></div>
             <div className="w-full mb-20">
-              <TextField id="outlined-basic" label="Name" variant="outlined" className="w-full" />
+              <TextField
+                onChange={handleNameChange}
+                value={formData.name}
+                id="outlined-basic"
+                label="Name"
+                variant="outlined"
+                className="w-full"
+              />
             </div>
             <div className="w-full mb-20">
               <TextField
+                onChange={handleDescChange}
+                value={formData.desc}
                 id="outlined-basic"
                 label="Description"
                 variant="outlined"
@@ -177,13 +233,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
+                    value={formData.skill1}
                     label="Skills 1"
-                    // onChange={handleChange}
+                    onChange={handleSkills1Change}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {Skills.map(skill => (
+                      <MenuItem value={skill}>{skill}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -193,13 +249,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
+                    value={formData.level1}
                     label="Level"
-                    // onChange={handleChange}
+                    onChange={handleLevel1Change}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {Levels.map(level => (
+                      <MenuItem value={level}>{level}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -211,13 +267,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
-                    label="Skills 1"
-                    // onChange={handleChange}
+                    value={formData.skill2}
+                    label="Skills 2"
+                    onChange={handleSkills2Change}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {Skills.map(skill => (
+                      <MenuItem value={skill}>{skill}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -227,13 +283,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
+                    value={formData.level2}
                     label="Level"
-                    // onChange={handleChange}
+                    onChange={handleLevel2Change}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {Levels.map(level => (
+                      <MenuItem value={level}>{level}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -245,13 +301,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
-                    label="Skills 1"
-                    // onChange={handleChange}
+                    value={formData.skill3}
+                    label="Skills 3"
+                    onChange={handleSkills3Change}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {Skills.map(skill => (
+                      <MenuItem value={skill}>{skill}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -261,13 +317,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
+                    value={formData.level3}
                     label="Level"
-                    // onChange={handleChange}
+                    onChange={handleLevel3Change}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {Levels.map(level => (
+                      <MenuItem value={level}>{level}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -282,7 +338,7 @@ const ProfileDialog = forwardRef((props, ref) => {
                   labelId="demo-multiple-chip-label"
                   id="demo-multiple-chip"
                   multiple
-                  value={personName}
+                  value={formData.interest}
                   onChange={handleChange}
                   input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                   renderValue={selected => (
@@ -294,9 +350,13 @@ const ProfileDialog = forwardRef((props, ref) => {
                   )}
                   MenuProps={MenuProps}
                 >
-                  {names.map(name => (
-                    <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-                      {name}
+                  {Interests.map(item => (
+                    <MenuItem
+                      key={item}
+                      value={item}
+                      style={getStyles(item, formData.interest, theme)}
+                    >
+                      {item}
                     </MenuItem>
                   ))}
                 </Select>
@@ -307,6 +367,8 @@ const ProfileDialog = forwardRef((props, ref) => {
             </div>
             <div className="w-full mb-20">
               <TextField
+                onChange={handleTwitterChange}
+                value={formData.twitter}
                 id="outlined-basic"
                 label="Twitter"
                 variant="outlined"
@@ -315,6 +377,8 @@ const ProfileDialog = forwardRef((props, ref) => {
             </div>
             <div className="w-full mb-20">
               <TextField
+                onChange={handleWebsiteChange}
+                value={formData.website}
                 id="outlined-basic"
                 label="website"
                 variant="outlined"
@@ -322,10 +386,19 @@ const ProfileDialog = forwardRef((props, ref) => {
               />
             </div>
             <div className="w-full mb-20">
-              <TextField id="outlined-basic" label="Email" variant="outlined" className="w-full" />
+              <TextField
+                onChange={handleEmailChange}
+                value={formData.email}
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                className="w-full"
+              />
             </div>
             <div className="w-full mb-20">
               <TextField
+                onChange={handleGithubChange}
+                value={formData.github}
                 id="outlined-basic"
                 label="Github URl"
                 variant="outlined"
@@ -337,6 +410,7 @@ const ProfileDialog = forwardRef((props, ref) => {
         <DialogActions>
           {/* <Button onClick={handleClose}>Cancel</Button> */}
           <Button
+            onClick={handleSave}
             className="w-78 h-48 rounded-[8px text-[#fff]"
             variant="contained"
             style={saveButtonStyle}

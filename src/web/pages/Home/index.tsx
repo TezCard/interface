@@ -7,9 +7,6 @@ import { MenuRouteConfig } from '@constants/MenuRouteConfig';
 function Home() {
   const navigate = useNavigate();
   useEffect(() => {}, []);
-  const handleGoDao = () => {
-    navigate(MenuRouteConfig?.dao?.route);
-  };
   const handleGoProfile = () => {
     navigate(MenuRouteConfig?.profile?.route);
   };
@@ -21,7 +18,7 @@ function Home() {
         <Button
           className="w-190 h-68 text-center leading-[68px] text-[16px] mb-20"
           style={getStartBtn}
-          onClick={handleGoDao}
+          onClick={handleGoProfile}
         >
           GET STARTED
         </Button>
@@ -29,12 +26,6 @@ function Home() {
           (Download the latest PDF Pitch Deck)
         </DownLoadDeck>
       </Content>
-      <div className="bg-[#f48]" onClick={handleGoDao}>
-        test -- go page of dao
-      </div>
-      <div className="bg-[#f48]" onClick={handleGoProfile}>
-        test -- go page of profile
-      </div>
     </Container>
   );
 }

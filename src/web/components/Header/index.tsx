@@ -57,9 +57,16 @@ const Header = () => {
     navigate(MenuRouteConfig['0'].route);
   };
   const handleConnectWallet = async () => {
-    const { wallet, tezos, isConnected } = obj;
+    const { wallet, tezos, isConnected, address } = obj;
     if (isConnected) {
       alert('Already connected');
+      // console.log(
+      //   'wallet',
+      //   tezos.rpc
+      //     .getBalance(address)
+      //     .then(balance => console.log(`${balance.toNumber() / 1000000} ꜩ`))
+      //     .catch(error => console.log(JSON.stringify(error)))
+      // );
       return;
     }
     // connects the wallet to the Tezos network
@@ -73,7 +80,7 @@ const Header = () => {
       draft.address = userAddress;
       draft.isConnected = true;
     });
-    console.log('userAddress', userAddress);
+    console.log('wallet', wallet);
     // set zhe wallet and tezos instance to the TezosToolkit instance
     tezos.setWalletProvider(wallet);
     tezos.setProvider({ wallet });
