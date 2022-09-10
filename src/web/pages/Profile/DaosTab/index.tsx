@@ -12,9 +12,9 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
-const daoNum = [1, 2, 3, 4, 5];
 
-const DaosTab = () => {
+const DaosTab = props => {
+  const { dao = [] } = props;
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -66,8 +66,8 @@ const DaosTab = () => {
               <img width="48" height="39" src="/public/addDao.png" alt="addDao" />
             </AddDao>
             <div className="w-full flex justify-between flex-wrap">
-              {daoNum.map((item, index) => (
-                <DaoCard key={index} />
+              {dao.map((item, index) => (
+                <DaoCard key={index} data={item} />
               ))}
             </div>
           </div>

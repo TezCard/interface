@@ -172,7 +172,7 @@ const ProfileDialog = forwardRef((props, ref) => {
   };
   const handleSave = () => {
     console.log('formData', formData);
-    // todo: save
+    // todo: save profile data (call contract) and close dialog and update profile
   };
   return (
     <div>

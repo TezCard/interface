@@ -5,6 +5,7 @@ export type StoreType = {
   address?: string;
   balance?: number;
   isConnected?: boolean;
+  currentDao?: any;
 };
 export type ProfileInfoType = {
   name: string;

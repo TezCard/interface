@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import DaoMember from '@components/DaoMember';
 import { styled } from '@mui/material/styles';
+import { useImmer } from '@hooks/useImmer';
 import Search from '../Search';
 import { DaoTabs } from './style';
 
@@ -15,7 +16,59 @@ interface TabPanelProps {
 }
 
 const ContentTabs = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useImmer(0);
+  const [member, setMember] = useImmer({
+    data: [],
+  });
+
+  const getDaoData = async () => {
+    // mock data
+    const data = [
+      {
+        name: 'Wang Teng',
+        avatar: '',
+        skills: ['UI Design', 'PM', 'Frontend'],
+        tags: ['Builder', 'Core', 'Inversor'],
+        twitter: '',
+        github: '',
+        email: '',
+      },
+      {
+        name: 'Cutefcc',
+        avatar: '',
+        skills: ['UI Design', 'PM', 'Frontend'],
+        tags: ['Builder', 'Core', 'Inversor', 'Project Manager'],
+        twitter: '',
+        github: '',
+        email: '',
+      },
+      {
+        name: 'George',
+        avatar: '',
+        skills: ['UI Design', 'PM', 'Backend'],
+        tags: ['Builder', 'Core', 'Inversor', 'Project Manager'],
+        twitter: '',
+        github: '',
+        email: '',
+      },
+      {
+        name: 'xxx',
+        avatar: '',
+        skills: ['UI Design', 'PM'],
+        tags: ['Builder', 'Core', 'Inversor', 'Project Manager'],
+        twitter: '',
+        github: '',
+        email: '',
+      },
+    ];
+    setMember(draft => {
+      draft.data = data;
+    });
+    // todo： get daoMember data from api(call contract)
+  };
+  useEffect(() => {
+    getDaoData();
+  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -65,7 +118,11 @@ const ContentTabs = () => {
         </Box>
         <TabPanel value={value} index={0}>
           <Search />
-          <DaoMember />
+          <div className="w-full flex flex-wrap justify-between">
+            {member.data.map((item, index) => (
+              <DaoMember key={item.name} data={item} />
+            ))}
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
           Contribution

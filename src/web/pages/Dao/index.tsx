@@ -4,6 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { store } from '@store/jotaiStore';
+import { useAtom } from 'jotai';
 import ContentTabs from './Tabs';
 
 import {
@@ -21,6 +23,8 @@ import {
 import { ReactSVG } from 'react-svg';
 
 function Home() {
+  const [obj, setObj] = useAtom(store);
+  const { currentDao } = obj;
   useEffect(() => {}, []);
 
   const renderLeftInfo = () => {
@@ -36,10 +40,10 @@ function Home() {
     return (
       <RightInfo className="w-full pl-48">
         <DaoName className="h-44 leading-[44px] mt-40 mb-10 text-[32px] text-[#101828]">
-          Web3Dao
+          {currentDao.name}
         </DaoName>
         <DaoDesc className="h-24 leading-[24px] text-[16px] text-[#667085]">
-          This is the description
+          {currentDao.desc}
         </DaoDesc>
         <BottomBtn className="h-20 mt-70 leading-[20px] flex flex-row">
           <ReactSVG
