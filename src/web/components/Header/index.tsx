@@ -8,15 +8,18 @@ import { NetworkType, BeaconEvent, defaultEventCallbacks } from '@airgap/beacon-
 import ConnectWallet from '@components/ConnectWallet';
 import { TezosToolkit, WalletProvider } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
+import { getCurretnRoute } from '@utils/getCurrentRoute';
 import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
 
 import { StoreType } from '@type/index';
+import { useImmer } from '@hooks/useImmer';
 
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
-
+  const [currRoute, setCurrRoute] = useImmer<string>(getCurretnRoute());
   useEffect(() => {
+    console.log('header-render');
     (async () => {
       const options = {
         name: 'MyAwesomeDapp',
@@ -89,11 +92,27 @@ const Header = () => {
       .then(balance => console.log(`${balance.toNumber() / 1000000} ꜩ`))
       .catch(error => console.log(JSON.stringify(error)));
   };
+  const handleDisconnect = async () => {
+    const { wallet, tezos } = obj;
+    await wallet.clearActiveAccount();
+    setObj((draft: StoreType) => {
+      draft.address = '';
+      draft.isConnected = false;
+    });
+    tezos.setWalletProvider({} as WalletProvider);
+    console.log('disconnect ing');
+    if (wallet) {
+      await wallet.client.removeAllAccounts();
+      await wallet.client.removeAllPeers();
+      await wallet.client.destroy();
+    }
+  };
   return (
     <TopHeader>
       <Content>
         <Slogan onClick={handleHome}></Slogan>
         <RightBtn>
+          {currRoute === MenuRouteConfig['0'].route && <div className="w-146 h-36"></div>}
           <ReactSVG
             beforeInjection={svg => {
               svg.setAttribute('style', 'width: 20px');
@@ -126,7 +145,11 @@ const Header = () => {
             useRequestCache={false}
             wrapper="span"
           />
-          <ConnectWallet onConnect={handleConnectWallet} />
+
+          {currRoute !== MenuRouteConfig['0'].route && (
+            <ConnectWallet onConnect={handleConnectWallet} />
+          )}
+          <div onClick={handleDisconnect}>disconnect</div>
         </RightBtn>
       </Content>
     </TopHeader>

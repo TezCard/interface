@@ -21,6 +21,7 @@ import {
   DaoTabs,
 } from './style';
 import { ReactSVG } from 'react-svg';
+import Header from '@components/Header';
 
 function Home() {
   const [obj, setObj] = useAtom(store);
@@ -100,13 +101,16 @@ function Home() {
   };
 
   return (
-    <Container className="w-1280 m-auto mt-80">
-      <DaoInfo className="h-207 flex">
-        {renderLeftInfo()}
-        {renderRightInfo()}
-      </DaoInfo>
-      <ContentTabs />
-    </Container>
+    <>
+      <Header />
+      <Container className="w-1280 m-auto mt-80">
+        <DaoInfo className="h-207 flex">
+          {renderLeftInfo()}
+          {renderRightInfo()}
+        </DaoInfo>
+        <ContentTabs />
+      </Container>
+    </>
   );
 }
 export default memo(Home);
