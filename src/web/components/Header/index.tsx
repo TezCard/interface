@@ -10,11 +10,13 @@ import { TezosToolkit, WalletProvider } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 // import { TempleWallet } from '@temple-wallet/dapp';
 import { getCurretnRoute } from '@utils/getCurrentRoute';
+import * as IPFS from 'ipfs-core';
+// import { create } from 'ipfs-http-client';
 import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
 import { StoreType } from '@type/index';
 import { useImmer } from '@hooks/useImmer';
-
+// const client = create({ url: 'http://localhost:8080/ip4/127.0.0.1/tcp/5001' });
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
   const [currRoute] = useImmer<string>(getCurretnRoute());
@@ -38,13 +40,16 @@ const Header = () => {
         },
       };
       // check if the user has already paired their wallet
+      // This code should be called every time the page is loaded or refreshed to see if the user has already connected to a wallet.
       const activeAccount = await wallet?.client?.getActiveAccount();
       console.log('activeAccount', activeAccount, wallet);
       if (wallet && activeAccount) {
-        setObj((draft: StoreType) => {
-          draft.address = activeAccount.address;
-          draft.isConnected = true;
-        });
+        if (activeAccount.address !== obj.address) {
+          setObj((draft: StoreType) => {
+            draft.address = activeAccount.address;
+            draft.isConnected = true;
+          });
+        }
         return;
       } else {
         // create a new wallet instance
@@ -118,6 +123,37 @@ const Header = () => {
   //     await wallet.client.destroy();
   //   }
   // };
+  // const handleIpfs = async () => {
+  //   const node = await IPFS.create();
+
+  //   const reader = new FileReader();
+  //   reader.onloadend = function () {
+  //     // const ipfs = window.IpfsApi('localhost', 5001); // Connect to IPFS
+  //     // const buf = new Buffer(reader.result); // Convert data into buffer
+  //     // ipfs.files.add(buf, (err, result) => {
+  //     // IPFS.files.add(buf, (err, result) => {
+  //     //   // Upload buffer to IPFS
+  //     //   if (err) {
+  //     //     console.error(err);
+  //     //     return;
+  //     //   }
+  //     //   let url = `https://ipfs.io/ipfs/${result[0].hash}`;
+  //     //   console.log(`Url --> ${url}`);
+  //     //   // document.getElementById("url").innerHTML= url
+  //     //   // document.getElementById("url").href= url
+  //     //   // document.getElementById("output").src = url
+  //     // });
+  //   };
+  //   const photo = document.getElementById('photo');
+  //   reader.readAsArrayBuffer(photo.files[0]);
+  // };
+  const onChange = async e => {
+    const file = e.target.files[0];
+    const node = await IPFS.create();
+    const fileAdded = await node.add(file);
+    console.log('added', fileAdded);
+    // 我的冯宝宝 ipfs地址：https://ipfs.io/ipfs/QmTr2asJzZ95Fn5q3ABRwNdF61ReDQzsCEVdyp164cKCLr
+  };
   return (
     <TopHeader>
       <Content>
@@ -161,6 +197,8 @@ const Header = () => {
             <ConnectWallet onConnect={handleConnectWallet} />
           )}
           {/* <div onClick={handleDisconnect}>disconnect</div> */}
+          <input type="file" name="photo" id="photo" onChange={onChange}></input>
+          {/* <div onClick={handleIpfs}>ipfs</div> */}
         </RightBtn>
       </Content>
     </TopHeader>
