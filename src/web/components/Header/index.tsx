@@ -8,6 +8,7 @@ import { NetworkType, BeaconEvent, defaultEventCallbacks } from '@airgap/beacon-
 import ConnectWallet from '@components/ConnectWallet';
 import { TezosToolkit, WalletProvider } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
+import { TempleWallet } from '@temple-wallet/dapp';
 import { getCurretnRoute } from '@utils/getCurrentRoute';
 import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
@@ -92,6 +93,23 @@ const Header = () => {
       .then(balance => console.log(`${balance.toNumber() / 1000000} ꜩ`))
       .catch(error => console.log(JSON.stringify(error)));
   };
+  const handleConnectWallet1 = async () => {
+    const { wallet, tezos, isConnected, address } = obj;
+    TempleWallet.isAvailable()
+      .then(() => {
+        const mywallet = new TempleWallet('MyAwesomeDapp');
+        mywallet
+          .connect('mainnet')
+          .then(() => {
+            tezos.setWalletProvider(mywallet);
+            return mywallet.getPKH();
+          })
+          .then(pkh => {
+            console.log(`Your address: ${pkh}`);
+          });
+      })
+      .catch(err => console.log(err));
+  };
   const handleDisconnect = async () => {
     const { wallet, tezos } = obj;
     await wallet.clearActiveAccount();
@@ -147,7 +165,8 @@ const Header = () => {
           />
 
           {currRoute !== MenuRouteConfig['0'].route && (
-            <ConnectWallet onConnect={handleConnectWallet} />
+            // <ConnectWallet onConnect={handleConnectWallet} />
+            <ConnectWallet onConnect={handleConnectWallet1} />
           )}
           <div onClick={handleDisconnect}>disconnect</div>
         </RightBtn>
