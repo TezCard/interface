@@ -195,6 +195,7 @@ const ProfileDialog = forwardRef((props, ref) => {
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
+            className="overflow-x-hidden"
           >
             <div className="w-600 h-44 leading-[44px] text-bold text-[32px] text-[#101828]">
               Profile details
@@ -331,8 +332,8 @@ const ProfileDialog = forwardRef((props, ref) => {
             <div className="w-600 h-44 mt-40 mb-25 leading-[44px] text-bold text-[20px] text-[#101828]">
               Interests
             </div>
-            <div className="w-full">
-              <FormControl className="w-full" sx={{ m: 1 }}>
+            <div>
+              <FormControl className="w-full">
                 <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
                 <Select
                   labelId="demo-multiple-chip-label"

@@ -8,8 +8,8 @@ import Header from '@components/Header';
 function Home() {
   const navigate = useNavigate();
   useEffect(() => {}, []);
-  const handleGoProfile = () => {
-    navigate(MenuRouteConfig?.profile?.route);
+  const handleGoDaoLists = () => {
+    navigate(MenuRouteConfig?.daoLists?.route);
   };
   return (
     <>
@@ -21,7 +21,7 @@ function Home() {
           <Button
             className="w-190 h-68 text-center leading-[68px] text-[16px] mb-20"
             style={getStartBtn}
-            onClick={handleGoProfile}
+            onClick={handleGoDaoLists}
           >
             GET STARTED
           </Button>

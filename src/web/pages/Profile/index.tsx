@@ -11,6 +11,7 @@ import { useAtom } from 'jotai';
 import DaosTab from './DaosTab';
 import SbtsTab from './SbtsTab';
 import { getAccordionDetailsUtilityClass } from '@mui/material';
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 import Header from '@components/Header';
 
 export type ProfileData = {
@@ -33,9 +34,15 @@ export type DaoItemType = {
 export type DaoType = {
   dao: DaoItemType[];
 };
+export interface State extends SnackbarOrigin {
+  clipboard: boolean;
+}
+export type ProfileDialogType = {
+  handleClickOpen: (param: string) => () => void;
+} & HTMLElement;
 
 function Profile() {
-  const profileRef = useRef(null);
+  const profileRef = useRef<ProfileDialogType>(null);
   const [profileData, setProfileData] = useImmer<ProfileData>({
     data: {
       name: '',
@@ -59,6 +66,24 @@ function Profile() {
     ],
   });
   const [obj, setObj] = useAtom(store);
+  const [state, setState] = useImmer<State>({
+    clipboard: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, clipboard } = state;
+
+  const handleClipboardClick = () => {
+    setState(draft => {
+      draft.clipboard = true;
+    });
+  };
+
+  const handleCloseClipboard = () => {
+    setState(draft => {
+      draft.clipboard = false;
+    });
+  };
   const getProfileData = () => {
     // mock data
     const data = {
@@ -188,7 +213,7 @@ function Profile() {
                 evalScripts="always"
                 fallback={() => <span>Error!</span>}
                 httpRequestWithCredentials={true}
-                loading={() => <span>Loading</span>}
+                loading={() => <span></span>}
                 onClick={() => {
                   console.log('wrapper onClick');
                 }}
@@ -204,7 +229,7 @@ function Profile() {
                 evalScripts="always"
                 fallback={() => <span>Error!</span>}
                 httpRequestWithCredentials={true}
-                loading={() => <span>Loading</span>}
+                loading={() => <span></span>}
                 onClick={() => {
                   console.log('wrapper onClick');
                 }}
@@ -220,7 +245,7 @@ function Profile() {
                 evalScripts="always"
                 fallback={() => <span>Error!</span>}
                 httpRequestWithCredentials={true}
-                loading={() => <span>Loading</span>}
+                loading={() => <span></span>}
                 onClick={() => {
                   console.log('wrapper onClick');
                 }}
@@ -236,7 +261,7 @@ function Profile() {
                 evalScripts="always"
                 fallback={() => <span>Error!</span>}
                 httpRequestWithCredentials={true}
-                loading={() => <span>Loading</span>}
+                loading={() => <span></span>}
                 onClick={() => {
                   console.log('wrapper onClick');
                 }}
@@ -252,7 +277,7 @@ function Profile() {
                 evalScripts="always"
                 fallback={() => <span>Error!</span>}
                 httpRequestWithCredentials={true}
-                loading={() => <span>Loading</span>}
+                loading={() => <span></span>}
                 onClick={() => {
                   console.log('wrapper onClick');
                 }}
@@ -262,17 +287,32 @@ function Profile() {
                 wrapper="span"
               />
               <div className="w-160 h-20 leading-[20px] flex">
-                <span className="w-129 mr-10">{getSmallAddress(obj.address)}</span>
+                <span className="w-129 mr-10">
+                  {getSmallAddress(obj?.address as string)
+                    ? getSmallAddress(obj?.address as string)
+                    : 'xxxxxx...xxxxxx'}
+                </span>
                 <ReactSVG
+                  className="cursor-pointer"
                   beforeInjection={svg => {
                     svg.setAttribute('style', 'width: 20px');
                   }}
                   evalScripts="always"
                   fallback={() => <span>Error!</span>}
                   httpRequestWithCredentials={true}
-                  loading={() => <span>Loading</span>}
+                  loading={() => <span></span>}
                   onClick={() => {
-                    console.log('wrapper onClick');
+                    navigator.clipboard.writeText(obj?.address as string).then(
+                      () => {
+                        handleClipboardClick();
+                        setTimeout(() => {
+                          handleCloseClipboard();
+                        }, 3000);
+                      },
+                      () => {
+                        /* clipboard write failed */
+                      }
+                    );
                   }}
                   renumerateIRIElements={false}
                   src="public/vector.svg"
@@ -300,6 +340,13 @@ function Profile() {
           <SbtsTab />
         </Sbt>
         <ProfileDialog ref={profileRef} />
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={clipboard}
+          onClose={handleCloseClipboard}
+          message="Copied"
+          key={vertical + horizontal}
+        />
       </Container>
     </>
   );

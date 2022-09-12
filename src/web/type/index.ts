@@ -2,7 +2,7 @@ import { TezosToolkit, WalletProvider } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 export type StoreType = {
   tezos?: TezosToolkit;
-  wallet?: BeaconWallet | null;
+  wallet?: BeaconWallet;
   address?: string;
   balance?: number;
   isConnected?: boolean;
