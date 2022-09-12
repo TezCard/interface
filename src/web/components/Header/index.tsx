@@ -41,7 +41,8 @@ const Header = () => {
       // create a new wallet instance
       const wallet = new BeaconWallet(options);
       // create a new TezosToolkit instance
-      const tezos = new TezosToolkit('https://api.tez.ie/rpc/mainnet');
+      // const tezos = new TezosToolkit('https://api.tez.ie/rpc/mainnet');
+      const tezos = new TezosToolkit('https://mainnet-tezos.giganode.io');
       setObj((draft: StoreType) => {
         draft.wallet = wallet;
         draft.tezos = tezos;
@@ -64,21 +65,15 @@ const Header = () => {
     const { wallet, tezos, isConnected, address } = obj;
     if (isConnected) {
       alert('Already connected');
-      // console.log(
-      //   'wallet',
-      //   tezos.rpc
-      //     .getBalance(address)
-      //     .then(balance => console.log(`${balance.toNumber() / 1000000} ꜩ`))
-      //     .catch(error => console.log(JSON.stringify(error)))
-      // );
       return;
     }
     // connects the wallet to the Tezos network
-    await wallet.requestPermissions({
-      network: {
-        type: 'mainnet',
-      },
-    });
+    // await wallet.requestPermissions({
+    //   network: {
+    //     type: 'mainnet',
+    //   },
+    // });
+    await wallet.requestPermissions();
     const userAddress = await wallet.getPKH();
     setObj((draft: StoreType) => {
       draft.address = userAddress;
@@ -166,7 +161,7 @@ const Header = () => {
 
           {currRoute !== MenuRouteConfig['0'].route && (
             // <ConnectWallet onConnect={handleConnectWallet} />
-            <ConnectWallet onConnect={handleConnectWallet1} />
+            <ConnectWallet onConnect={handleConnectWallet} />
           )}
           <div onClick={handleDisconnect}>disconnect</div>
         </RightBtn>
