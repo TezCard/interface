@@ -21,6 +21,7 @@ const Header = () => {
   const [currRoute, setCurrRoute] = useImmer<string>(getCurretnRoute());
   useEffect(() => {
     console.log('header-render');
+    const { wallet, tezos, isConnected, address } = obj;
     (async () => {
       const options = {
         name: 'MyAwesomeDapp',
@@ -38,17 +39,20 @@ const Header = () => {
           },
         },
       };
+      if (wallet) {
+        return;
+      }
       // create a new wallet instance
-      const wallet = new BeaconWallet(options);
+      const walletInstance = new BeaconWallet(options);
       // create a new TezosToolkit instance
       // const tezos = new TezosToolkit('https://api.tez.ie/rpc/mainnet');
       const tezos = new TezosToolkit('https://mainnet-tezos.giganode.io');
       setObj((draft: StoreType) => {
-        draft.wallet = wallet;
+        draft.wallet = walletInstance;
         draft.tezos = tezos;
       });
       // check if the user has already paired their wallet
-      const activeAccount = await wallet.client.getActiveAccount();
+      const activeAccount = await walletInstance.client.getActiveAccount();
       if (activeAccount) {
         setObj((draft: StoreType) => {
           draft.address = activeAccount.address;
@@ -88,23 +92,23 @@ const Header = () => {
       .then(balance => console.log(`${balance.toNumber() / 1000000} ꜩ`))
       .catch(error => console.log(JSON.stringify(error)));
   };
-  const handleConnectWallet1 = async () => {
-    const { wallet, tezos, isConnected, address } = obj;
-    TempleWallet.isAvailable()
-      .then(() => {
-        const mywallet = new TempleWallet('MyAwesomeDapp');
-        mywallet
-          .connect('mainnet')
-          .then(() => {
-            tezos.setWalletProvider(mywallet);
-            return mywallet.getPKH();
-          })
-          .then(pkh => {
-            console.log(`Your address: ${pkh}`);
-          });
-      })
-      .catch(err => console.log(err));
-  };
+  // const handleConnectWallet1 = async () => {
+  //   const { wallet, tezos, isConnected, address } = obj;
+  //   TempleWallet.isAvailable()
+  //     .then(() => {
+  //       const mywallet = new TempleWallet('MyAwesomeDapp');
+  //       mywallet
+  //         .connect('mainnet')
+  //         .then(() => {
+  //           tezos.setWalletProvider(mywallet);
+  //           return mywallet.getPKH();
+  //         })
+  //         .then(pkh => {
+  //           console.log(`Your address: ${pkh}`);
+  //         });
+  //     })
+  //     .catch(err => console.log(err));
+  // };
   const handleDisconnect = async () => {
     const { wallet, tezos } = obj;
     await wallet.clearActiveAccount();

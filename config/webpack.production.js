@@ -22,7 +22,7 @@ module.exports = {
         parallel: os.cpus().length - 1,
         terserOptions: {
           compress: {
-            drop_console: true,
+            drop_console: false,
             drop_debugger: true,
           },
         },

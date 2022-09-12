@@ -118,6 +118,7 @@ const webpackBaseConfig = {
       stream: require.resolve('stream-browserify'),
       path: require.resolve('path-browserify'),
     },
+    // fallback: { stream: false, path: false, crypto: false },
   },
   plugins: [
     new CopyPlugin({
