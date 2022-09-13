@@ -32,6 +32,7 @@ import { useImmer } from '@hooks/useImmer';
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
   const [currRoute] = useImmer<string>(getCurretnRoute());
+  const ipfs = window.IpfsHttpClient('ipfs.infura.io', '5001', { protocol: 'https' });
   useEffect(() => {
     const { wallet } = obj;
     (async () => {
@@ -175,11 +176,13 @@ const Header = () => {
     /////////////////////////////////////////////////////////////
     const file = e.target.files[0];
     const reader = new FileReader();
+    console.log('ipfs', IPFS);
     const node = await IPFS.create();
     console.log('node--', node);
 
     reader.onload = async () => {
-      console.log('buffer', reader.result, typeof reader.result);
+      console.log('buffer', buffer.Buffer(reader.result), typeof reader.result);
+      // const results = await node.add(window.buffer.Buffer(reader.result));
       const results = await node.add(reader.result);
       console.log('show cid', results);
     };
@@ -208,6 +211,22 @@ const Header = () => {
     // const results = await node.add(data);
     // console.log('show cid', results);
     // success
+
+    // const reader = new FileReader();
+    // reader.onload = function (e) {
+    //   const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result); // honestly as a web developer I do not fully appreciate the difference between buffer and arrayBuffer
+    //   ipfs.add(magic_array_buffer_converted_to_buffer, (err, result) => {
+    //     console.log('result', err, result);
+    //     // let ipfsLink =
+    //     //   "<a href='https://gateway.ipfs.io/ipfs/" +
+    //     //   result[0].hash +
+    //     //   "'>gateway.ipfs.io/ipfs/" +
+    //     //   result[0].hash +
+    //     //   '</a>';
+    //     // document.getElementById('link').innerHTML = ipfsLink;
+    //   });
+    // };
+    // reader.readAsArrayBuffer(e.target.files[0]);
   };
   return (
     <TopHeader>
@@ -256,7 +275,7 @@ const Header = () => {
           {/* <div onClick={handleIpfs}>ipfs</div> */}
         </RightBtn>
       </Content>
-      {/* <img src="https://ipfs.io/ipfs/QmVAYpX6JVxc152AJmjadSyGgSnCdDBfyFdhLCsqVtrZbc" /> */}
+      <img src="https://ipfs.io/ipfs/Qmb8TmKC1YrADa1zukdFuPHdCLSWk229UKzsTWt5MGGz2S" />
     </TopHeader>
   );
 };
