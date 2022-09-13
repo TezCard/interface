@@ -16,6 +16,20 @@ import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
 import { StoreType } from '@type/index';
 import { useImmer } from '@hooks/useImmer';
+import fs from 'fs';
+
+const imagesDir = '/src/public';
+
+// const files = fs.readdirSync(imagesDir)
+
+// const ipfs = await IPFS.create()
+
+// for(let file of files) {
+//   const buffer = fs.readFileSync(`${imagesDir}/${file}`)
+//   const result = await ipfs.add(buffer)
+//   console.log(result)
+// }
+
 // const client = create({ url: 'http://localhost:8080/ip4/127.0.0.1/tcp/5001' });
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
@@ -148,11 +162,24 @@ const Header = () => {
   //   reader.readAsArrayBuffer(photo.files[0]);
   // };
   const onChange = async e => {
-    const file = e.target.files[0];
-    const node = await IPFS.create();
-    const fileAdded = await node.add(file);
-    console.log('added', fileAdded);
+    // const file = e.target.files[0];
+    // console.log('file', file);
+    // var buffer = Buffer.from(file, 'base64');
+    // console.log('buffer', buffer);
+    // const node = await IPFS.create();
+    // const fileAdded = await node.add(file);
+    // console.log('added', fileAdded);
     // 我的冯宝宝 ipfs地址：https://ipfs.io/ipfs/QmTr2asJzZ95Fn5q3ABRwNdF61ReDQzsCEVdyp164cKCLr
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const arrayBuffer = new Uint8Array(reader.result);
+      console.log('arrayBuffer', arrayBuffer);
+      const node = await IPFS.create();
+      const fileAdded = await node.add(arrayBuffer);
+      console.log('added', fileAdded);
+    };
+    reader.readAsArrayBuffer(e.target.files[0]);
   };
   return (
     <TopHeader>
