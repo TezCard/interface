@@ -18,8 +18,6 @@ import { StoreType } from '@type/index';
 import { useImmer } from '@hooks/useImmer';
 // import fs from 'fs';
 
-const imagesDir = '/src/public';
-
 // const files = fs.readdirSync(imagesDir)
 
 // const ipfs = await IPFS.create()
@@ -177,12 +175,13 @@ const Header = () => {
     /////////////////////////////////////////////////////////////
     const file = e.target.files[0];
     const reader = new FileReader();
+    const node = await IPFS.create();
+    console.log('node--', node);
+
     reader.onload = async () => {
       console.log('buffer', reader.result, typeof reader.result);
-      const node = await IPFS.create();
-      console.log('1111', node);
-      const results = node.add(reader.result);
-      // console.log('show cid', results);
+      const results = await node.add(reader.result);
+      console.log('show cid', results);
     };
     reader.readAsArrayBuffer(file);
     /////////////////////////////////////////////////////////////
