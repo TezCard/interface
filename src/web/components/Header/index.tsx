@@ -182,8 +182,8 @@ const Header = () => {
 
     reader.onload = async () => {
       console.log('buffer', buffer.Buffer(reader.result), typeof reader.result);
-      // const results = await node.add(window.buffer.Buffer(reader.result));
-      const results = await node.add(reader.result);
+      const results = await node.add(window.buffer.Buffer(reader.result));
+      // const results = await node.add(reader.result);
       console.log('show cid', results);
     };
     reader.readAsArrayBuffer(file);
@@ -275,7 +275,7 @@ const Header = () => {
           {/* <div onClick={handleIpfs}>ipfs</div> */}
         </RightBtn>
       </Content>
-      <img src="https://ipfs.io/ipfs/Qmb8TmKC1YrADa1zukdFuPHdCLSWk229UKzsTWt5MGGz2S" />
+      {/* <img src="https://ipfs.io/ipfs/Qmb8TmKC1YrADa1zukdFuPHdCLSWk229UKzsTWt5MGGz2S" /> */}
     </TopHeader>
   );
 };
