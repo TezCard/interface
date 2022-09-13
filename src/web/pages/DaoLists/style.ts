@@ -1,4 +1,10 @@
 import styled from '@emotion/styled';
 export const Container = styled.div`
-  background: #f80; //var(--bgColor);
+  background: var(--bgColor);
+`;
+export const Search = styled.div`
+  background: var(--bgColor);
+`;
+export const DaoListsContainer = styled.div`
+  background: var(--bgColor);
 `;

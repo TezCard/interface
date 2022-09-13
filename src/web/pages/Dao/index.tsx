@@ -22,10 +22,20 @@ import {
 } from './style';
 import { ReactSVG } from 'react-svg';
 import Header from '@components/Header';
+import { useImmer } from '@hooks/useImmer';
 
 function Home() {
   const [obj, setObj] = useAtom(store);
-  const { currentDao } = obj;
+  const [currentDao, setCurrentDao] = useImmer({
+    data: {
+      name: 'string',
+      avatar: 'string',
+      role: 'string',
+      startTime: 'string',
+      members: 123,
+      desc: 'DAO desc',
+    },
+  });
   useEffect(() => {}, []);
 
   const renderLeftInfo = () => {
@@ -41,10 +51,10 @@ function Home() {
     return (
       <RightInfo className="w-full pl-48">
         <DaoName className="h-44 leading-[44px] mt-40 mb-10 text-[32px] text-[#101828]">
-          {currentDao.name}
+          {currentDao.data.name}
         </DaoName>
         <DaoDesc className="h-24 leading-[24px] text-[16px] text-[#667085]">
-          {currentDao.desc}
+          {currentDao.data.desc}
         </DaoDesc>
         <BottomBtn className="h-20 mt-70 leading-[20px] flex flex-row">
           <ReactSVG
