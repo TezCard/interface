@@ -16,23 +16,12 @@ import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
 import { StoreType } from '@type/index';
 import { useImmer } from '@hooks/useImmer';
-// import fs from 'fs';
-
-// const files = fs.readdirSync(imagesDir)
-
-// const ipfs = await IPFS.create()
-
-// for(let file of files) {
-//   const buffer = fs.readFileSync(`${imagesDir}/${file}`)
-//   const result = await ipfs.add(buffer)
-//   console.log(result)
-// }
-
-// const client = create({ url: 'http://localhost:8080/ip4/127.0.0.1/tcp/5001' });
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
   const [currRoute] = useImmer<string>(getCurretnRoute());
-  const ipfs = window.IpfsHttpClient('ipfs.infura.io', '5001', { protocol: 'https' });
+  const [ipfsNode, setIpfsNode] = useImmer({
+    node: null,
+  });
   useEffect(() => {
     const { wallet } = obj;
     (async () => {
@@ -136,97 +125,24 @@ const Header = () => {
   //     await wallet.client.destroy();
   //   }
   // };
-  // const handleIpfs = async () => {
-  //   const node = await IPFS.create();
-
-  //   const reader = new FileReader();
-  //   reader.onloadend = function () {
-  //     // const ipfs = window.IpfsApi('localhost', 5001); // Connect to IPFS
-  //     // const buf = new Buffer(reader.result); // Convert data into buffer
-  //     // ipfs.files.add(buf, (err, result) => {
-  //     // IPFS.files.add(buf, (err, result) => {
-  //     //   // Upload buffer to IPFS
-  //     //   if (err) {
-  //     //     console.error(err);
-  //     //     return;
-  //     //   }
-  //     //   let url = `https://ipfs.io/ipfs/${result[0].hash}`;
-  //     //   console.log(`Url --> ${url}`);
-  //     //   // document.getElementById("url").innerHTML= url
-  //     //   // document.getElementById("url").href= url
-  //     //   // document.getElementById("output").src = url
-  //     // });
-  //   };
-  //   const photo = document.getElementById('photo');
-  //   reader.readAsArrayBuffer(photo.files[0]);
-  // };
   const onChange = async e => {
-    // img to base64 string  upload ipfs
-    // const file = e.target.files[0];
-    // const reader = new FileReader();
-    // reader.onload = async () => {
-    //   console.log('base64', reader.result, typeof reader.result);
-    //   const base64String = reader.result; //.replace('data:', '').replace(/^.+,/, '');
-    //   const node = await IPFS.create();
-    //   const results = await node.add(base64String);
-    //   console.log('show cid', results);
-    // };
-    // reader.readAsDataURL(file);
-    // img to base64 string  upload ipfs
-    /////////////////////////////////////////////////////////////
     const file = e.target.files[0];
     const reader = new FileReader();
-    console.log('ipfs', IPFS);
-    const node = await IPFS.create();
-    console.log('node--', node);
+    let node;
+    if (!ipfsNode.node) {
+      node = await IPFS.create();
+      setIpfsNode(draft => {
+        draft.node = node;
+      });
+    } else {
+      node = ipfsNode.node;
+    }
 
     reader.onload = async () => {
-      console.log('buffer', buffer.Buffer(reader.result), typeof reader.result);
-      const results = await node.add(window.buffer.Buffer(reader.result));
-      // const results = await node.add(reader.result);
-      console.log('show cid', results);
+      // const results = await node.add(window.buffer.Buffer(reader.result));
+      await node.add(reader.result);
     };
     reader.readAsArrayBuffer(file);
-    /////////////////////////////////////////////////////////////
-    // console.log('file', file);
-    // var buffer = Buffer.from(file, 'base64');
-    // console.log('buffer', buffer);
-    // const node = await IPFS.create();
-    // const fileAdded = await node.add(file);
-    // console.log('added', fileAdded);
-    // 我的冯宝宝 ipfs地址：https://ipfs.io/ipfs/QmTr2asJzZ95Fn5q3ABRwNdF61ReDQzsCEVdyp164cKCLr
-    // const reader = new FileReader();
-    // reader.onload = async () => {
-    //   const arrayBuffer = new Uint8Array(reader.result);
-    //   console.log('arrayBuffer', arrayBuffer);
-    //   const node = await IPFS.create();
-    //   const fileAdded = await node.add(arrayBuffer);
-    //   console.log('added', fileAdded);
-    // };
-    // reader.readAsArrayBuffer(e.target.files[0]);
-    //////////////////////////////////////////////
-    // success
-    // const data = 'Hello, <cutefcc>';
-    // const node = await IPFS.create();
-    // const results = await node.add(data);
-    // console.log('show cid', results);
-    // success
-
-    // const reader = new FileReader();
-    // reader.onload = function (e) {
-    //   const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result); // honestly as a web developer I do not fully appreciate the difference between buffer and arrayBuffer
-    //   ipfs.add(magic_array_buffer_converted_to_buffer, (err, result) => {
-    //     console.log('result', err, result);
-    //     // let ipfsLink =
-    //     //   "<a href='https://gateway.ipfs.io/ipfs/" +
-    //     //   result[0].hash +
-    //     //   "'>gateway.ipfs.io/ipfs/" +
-    //     //   result[0].hash +
-    //     //   '</a>';
-    //     // document.getElementById('link').innerHTML = ipfsLink;
-    //   });
-    // };
-    // reader.readAsArrayBuffer(e.target.files[0]);
   };
   return (
     <TopHeader>

@@ -7,6 +7,7 @@ export type StoreType = {
   balance?: number;
   isConnected?: boolean;
   currentDao?: any;
+  ipfsNode?: any;
 };
 export type ProfileInfoType = {
   name: string;

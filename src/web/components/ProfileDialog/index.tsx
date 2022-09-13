@@ -23,6 +23,7 @@ import { Skills, Levels, Interests } from '@constants/index';
 import { ProfileInfoType } from '@type/index';
 import Chip from '@mui/material/Chip';
 import { useImmer } from '@hooks/useImmer';
+import IpfsUpload from '@components/IpfsUpload';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -77,7 +78,11 @@ const ProfileDialog = forwardRef((props, ref) => {
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState<DialogProps['scroll']>('paper');
   const [formData, setFormData] = useImmer<ProfileInfoType>({ interest: [] });
+  const [avatar, setAvatar] = useImmer({
+    data: '',
+  });
   const theme = useTheme();
+  const uploadRef = useRef(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -174,6 +179,13 @@ const ProfileDialog = forwardRef((props, ref) => {
     console.log('formData', formData);
     // todo: save profile data (call contract) and close dialog and update profile
   };
+  const handleUploadSuccess = res => {
+    const { path } = res;
+    const url = `https://ipfs.io/ipfs/${path}`;
+    setAvatar(draft => {
+      draft.data = url;
+    });
+  };
   return (
     <div>
       {/* <Button onClick={handleClickOpen('paper')}>scroll=paper</Button>
@@ -203,7 +215,12 @@ const ProfileDialog = forwardRef((props, ref) => {
             <div className="w-600 h-44 mt-40 mb-25 leading-[44px] text-bold text-[20px] text-[#101828]">
               Basic Information
             </div>
-            <div className="w-152 h-152 mb-50 rounded-[76px] bg-[#847]"></div>
+            <div className="w-152 h-152 mb-50 rounded-[76px] bg-[#847] relative">
+              {avatar.data && (
+                <img src={avatar.data} className="w-152 h-152 absolute top-0 left-0" />
+              )}
+              <IpfsUpload ref={uploadRef} onUploadSuccess={handleUploadSuccess} />
+            </div>
             <div className="w-full mb-20">
               <TextField
                 onChange={handleNameChange}
