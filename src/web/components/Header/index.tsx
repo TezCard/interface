@@ -16,7 +16,7 @@ import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
 import { StoreType } from '@type/index';
 import { useImmer } from '@hooks/useImmer';
-import fs from 'fs';
+// import fs from 'fs';
 
 const imagesDir = '/src/public';
 
@@ -162,7 +162,29 @@ const Header = () => {
   //   reader.readAsArrayBuffer(photo.files[0]);
   // };
   const onChange = async e => {
+    // img to base64 string  upload ipfs
     // const file = e.target.files[0];
+    // const reader = new FileReader();
+    // reader.onload = async () => {
+    //   console.log('base64', reader.result, typeof reader.result);
+    //   const base64String = reader.result; //.replace('data:', '').replace(/^.+,/, '');
+    //   const node = await IPFS.create();
+    //   const results = await node.add(base64String);
+    //   console.log('show cid', results);
+    // };
+    // reader.readAsDataURL(file);
+    // img to base64 string  upload ipfs
+    /////////////////////////////////////////////////////////////
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = async () => {
+      console.log('buffer', reader.result, typeof reader.result);
+      const node = await IPFS.create();
+      const results = await node.add(reader.result);
+      console.log('show cid', results);
+    };
+    reader.readAsArrayBuffer(file);
+    /////////////////////////////////////////////////////////////
     // console.log('file', file);
     // var buffer = Buffer.from(file, 'base64');
     // console.log('buffer', buffer);
@@ -170,16 +192,22 @@ const Header = () => {
     // const fileAdded = await node.add(file);
     // console.log('added', fileAdded);
     // 我的冯宝宝 ipfs地址：https://ipfs.io/ipfs/QmTr2asJzZ95Fn5q3ABRwNdF61ReDQzsCEVdyp164cKCLr
-
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const arrayBuffer = new Uint8Array(reader.result);
-      console.log('arrayBuffer', arrayBuffer);
-      const node = await IPFS.create();
-      const fileAdded = await node.add(arrayBuffer);
-      console.log('added', fileAdded);
-    };
-    reader.readAsArrayBuffer(e.target.files[0]);
+    // const reader = new FileReader();
+    // reader.onload = async () => {
+    //   const arrayBuffer = new Uint8Array(reader.result);
+    //   console.log('arrayBuffer', arrayBuffer);
+    //   const node = await IPFS.create();
+    //   const fileAdded = await node.add(arrayBuffer);
+    //   console.log('added', fileAdded);
+    // };
+    // reader.readAsArrayBuffer(e.target.files[0]);
+    //////////////////////////////////////////////
+    // success
+    // const data = 'Hello, <cutefcc>';
+    // const node = await IPFS.create();
+    // const results = await node.add(data);
+    // console.log('show cid', results);
+    // success
   };
   return (
     <TopHeader>
@@ -228,6 +256,7 @@ const Header = () => {
           {/* <div onClick={handleIpfs}>ipfs</div> */}
         </RightBtn>
       </Content>
+      {/* <img src="https://ipfs.io/ipfs/QmVAYpX6JVxc152AJmjadSyGgSnCdDBfyFdhLCsqVtrZbc" /> */}
     </TopHeader>
   );
 };
