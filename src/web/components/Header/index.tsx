@@ -180,8 +180,9 @@ const Header = () => {
     reader.onload = async () => {
       console.log('buffer', reader.result, typeof reader.result);
       const node = await IPFS.create();
-      const results = await node.add(reader.result);
-      console.log('show cid', results);
+      console.log('1111', node);
+      const results = node.add(reader.result);
+      // console.log('show cid', results);
     };
     reader.readAsArrayBuffer(file);
     /////////////////////////////////////////////////////////////
