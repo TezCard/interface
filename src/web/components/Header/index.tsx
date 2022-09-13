@@ -19,9 +19,6 @@ import { useImmer } from '@hooks/useImmer';
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
   const [currRoute] = useImmer<string>(getCurretnRoute());
-  const [ipfsNode, setIpfsNode] = useImmer({
-    node: null,
-  });
   useEffect(() => {
     const { wallet } = obj;
     (async () => {
@@ -125,25 +122,6 @@ const Header = () => {
   //     await wallet.client.destroy();
   //   }
   // };
-  const onChange = async e => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    let node;
-    if (!ipfsNode.node) {
-      node = await IPFS.create();
-      setIpfsNode(draft => {
-        draft.node = node;
-      });
-    } else {
-      node = ipfsNode.node;
-    }
-
-    reader.onload = async () => {
-      // const results = await node.add(window.buffer.Buffer(reader.result));
-      await node.add(reader.result);
-    };
-    reader.readAsArrayBuffer(file);
-  };
   return (
     <TopHeader>
       <Content>
@@ -187,11 +165,8 @@ const Header = () => {
             <ConnectWallet onConnect={handleConnectWallet} />
           )}
           {/* <div onClick={handleDisconnect}>disconnect</div> */}
-          <input type="file" name="photo" id="photo" onChange={onChange}></input>
-          {/* <div onClick={handleIpfs}>ipfs</div> */}
         </RightBtn>
       </Content>
-      {/* <img src="https://ipfs.io/ipfs/Qmb8TmKC1YrADa1zukdFuPHdCLSWk229UKzsTWt5MGGz2S" /> */}
     </TopHeader>
   );
 };
