@@ -20,7 +20,7 @@ const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
   const [currRoute] = useImmer<string>(getCurretnRoute());
   useEffect(() => {
-    const { wallet } = obj;
+    const { wallet, tezos } = obj;
     (async () => {
       const options = {
         name: 'MyAwesomeDapp',
@@ -42,7 +42,7 @@ const Header = () => {
       // This code should be called every time the page is loaded or refreshed to see if the user has already connected to a wallet.
       const activeAccount = await wallet?.client?.getActiveAccount();
       console.log('activeAccount', activeAccount, wallet);
-      if (wallet && activeAccount) {
+      if (activeAccount) {
         if (activeAccount.address !== obj.address) {
           setObj((draft: StoreType) => {
             draft.address = activeAccount.address;
@@ -52,22 +52,25 @@ const Header = () => {
         return;
       } else {
         // create a new wallet instance
-        const walletInstance = new BeaconWallet(options);
+        const walletInstance: BeaconWallet = wallet ? wallet : new BeaconWallet(options);
         // create a new TezosToolkit instance
         // const tezos = new TezosToolkit('https://api.tez.ie/rpc/mainnet');
-        const tezos = new TezosToolkit('https://mainnet-tezos.giganode.io');
+        const newTezos: TezosToolkit = tezos
+          ? tezos
+          : new TezosToolkit('https://mainnet-tezos.giganode.io');
+
         const acAccount = await walletInstance?.client?.getActiveAccount();
         if (acAccount) {
           setObj((draft: StoreType) => {
             draft.wallet = walletInstance;
-            draft.tezos = tezos;
+            draft.tezos = newTezos;
             draft.address = acAccount.address;
             draft.isConnected = true;
           });
         } else {
           setObj((draft: StoreType) => {
             draft.wallet = walletInstance;
-            draft.tezos = tezos;
+            draft.tezos = newTezos;
           });
         }
       }
