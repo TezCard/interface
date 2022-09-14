@@ -206,101 +206,21 @@ function Profile() {
           </MiddleInfo>
           <RightInfo className="grow">
             <div className=" h-25 leading-[25px] mt-50 flex justify-end">
-              <ReactSVG
-                beforeInjection={svg => {
-                  svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-                }}
-                evalScripts="always"
-                fallback={() => <span>Error!</span>}
-                httpRequestWithCredentials={true}
-                loading={() => <span></span>}
-                onClick={() => {
-                  console.log('wrapper onClick');
-                }}
-                renumerateIRIElements={false}
-                src="public/global.svg"
-                useRequestCache={false}
-                wrapper="span"
-              />
-              <ReactSVG
-                beforeInjection={svg => {
-                  svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-                }}
-                evalScripts="always"
-                fallback={() => <span>Error!</span>}
-                httpRequestWithCredentials={true}
-                loading={() => <span></span>}
-                onClick={() => {
-                  console.log('wrapper onClick');
-                }}
-                renumerateIRIElements={false}
-                src="public/twitter.svg"
-                useRequestCache={false}
-                wrapper="span"
-              />
-              <ReactSVG
-                beforeInjection={svg => {
-                  svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-                }}
-                evalScripts="always"
-                fallback={() => <span>Error!</span>}
-                httpRequestWithCredentials={true}
-                loading={() => <span></span>}
-                onClick={() => {
-                  console.log('wrapper onClick');
-                }}
-                renumerateIRIElements={false}
-                src="public/discord.svg"
-                useRequestCache={false}
-                wrapper="span"
-              />
-              <ReactSVG
-                beforeInjection={svg => {
-                  svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-                }}
-                evalScripts="always"
-                fallback={() => <span>Error!</span>}
-                httpRequestWithCredentials={true}
-                loading={() => <span></span>}
-                onClick={() => {
-                  console.log('wrapper onClick');
-                }}
-                renumerateIRIElements={false}
-                src="public/more.svg"
-                useRequestCache={false}
-                wrapper="span"
-              />
-              <ReactSVG
-                beforeInjection={svg => {
-                  svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-                }}
-                evalScripts="always"
-                fallback={() => <span>Error!</span>}
-                httpRequestWithCredentials={true}
-                loading={() => <span></span>}
-                onClick={() => {
-                  console.log('wrapper onClick');
-                }}
-                renumerateIRIElements={false}
-                src="public/rectangle.svg"
-                useRequestCache={false}
-                wrapper="span"
-              />
+              <img src="/public/global.png" className="block w-20 h-20 mr-44" />
+              <img src="/public/twitter.png" className="block w-20 h-20 mr-44" />
+              <img src="/public/discord.png" className="block w-20 h-20 mr-44" />
+              <img src="/public/more.png" className="block w-20 h-20 mr-44" />
+              <img src="/public/rectangle.png" className="block w-1 h-20 mr-44" />
+
               <div className="w-160 h-20 leading-[20px] flex">
                 <span className="w-129 mr-10">
                   {getSmallAddress(obj?.address as string)
                     ? getSmallAddress(obj?.address as string)
                     : 'xxxxxx...xxxxxx'}
                 </span>
-                <ReactSVG
-                  className="cursor-pointer"
-                  beforeInjection={svg => {
-                    svg.setAttribute('style', 'width: 20px');
-                  }}
-                  evalScripts="always"
-                  fallback={() => <span>Error!</span>}
-                  httpRequestWithCredentials={true}
-                  loading={() => <span></span>}
+                <img
+                  src="/public/vector.png"
+                  className="block w-17 h-17 cursor-pointer"
                   onClick={() => {
                     navigator.clipboard.writeText(obj?.address as string).then(
                       () => {
@@ -314,10 +234,6 @@ function Profile() {
                       }
                     );
                   }}
-                  renumerateIRIElements={false}
-                  src="public/vector.svg"
-                  useRequestCache={false}
-                  wrapper="span"
                 />
               </div>
             </div>

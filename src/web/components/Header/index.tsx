@@ -131,38 +131,9 @@ const Header = () => {
         <Slogan onClick={handleHome} className="cursor-pointer"></Slogan>
         <RightBtn>
           {currRoute === MenuRouteConfig['0'].route && <div className="w-146 h-36"></div>}
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span></span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/twitter.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span></span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/discord.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
+          <img src="/public/twitter.png" className="block w-20 h-20" />
+
+          <img src="/public/discord.png" className="block w-20 h-20" />
 
           {currRoute !== MenuRouteConfig['0'].route && (
             <ConnectWallet onConnect={handleConnectWallet} />

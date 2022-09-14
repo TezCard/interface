@@ -73,54 +73,9 @@ function Home() {
           {currentDao.data.desc}
         </DaoDesc>
         <BottomBtn className="h-20 mt-70 leading-[20px] flex flex-row">
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span>Loading</span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/global.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px; margin-right: 44px;');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span>Loading</span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/twitter.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span>Loading</span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/discord.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
+          <img src="/public/global.png" className="block w-20 h-20 mr-44" />
+          <img src="/public/twitter.png" className="block w-20 h-20 mr-44" />
+          <img src="/public/discord.png" className="block w-20 h-20" />
         </BottomBtn>
       </RightInfo>
     );

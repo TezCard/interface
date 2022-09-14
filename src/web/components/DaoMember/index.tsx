@@ -46,54 +46,9 @@ const DaoMember = props => {
           {skills.map((item, index) => renderSkills(item, index))}
         </Skills>
         <BottomBtn className="flex">
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px; margin-right: 10px;');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span>Loading</span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/twitter.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px; margin-right: 10px;');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span>Loading</span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/email.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
-          <ReactSVG
-            beforeInjection={svg => {
-              svg.setAttribute('style', 'width: 20px');
-            }}
-            evalScripts="always"
-            fallback={() => <span>Error!</span>}
-            httpRequestWithCredentials={true}
-            loading={() => <span>Loading</span>}
-            onClick={() => {
-              console.log('wrapper onClick');
-            }}
-            renumerateIRIElements={false}
-            src="public/weChat.svg"
-            useRequestCache={false}
-            wrapper="span"
-          />
+          <img src="/public/twitter.png" className="block w-20 h-20 mr-10" />
+          <img src="/public/email.png" className="block w-20 h-20 mr-10" />
+          <img src="/public/weChat.png" className="block w-20 h-20" />
         </BottomBtn>
       </Container>
     </div>
