@@ -1,9 +1,10 @@
 import { memo, useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import { store } from '@store/jotaiStore';
 import { useAtom } from 'jotai';
 import ContentTabs from './Tabs';
@@ -19,6 +20,10 @@ import {
   DaoDesc,
   BottomBtn,
   DaoTabs,
+  ClaimBtn,
+  CalimBtnStyle,
+  ModalStyle,
+  JoinButtonStyle,
 } from './style';
 import { ReactSVG } from 'react-svg';
 import Header from '@components/Header';
@@ -36,13 +41,24 @@ function Home() {
       desc: 'DAO desc',
     },
   });
+  const [open, setOpen] = useImmer(false);
   useEffect(() => {}, []);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const renderLeftInfo = () => {
     return (
       <LeftInfo className="w-152 h-full flex flex-col justify-between items-center">
         <DaoLogo className="w-152 h-152"></DaoLogo>
-        <EditBtn className="w-50 h-32 text-center text-[14px] leading-[32px]">Edit</EditBtn>
+        <Button
+          onClick={handleOpen}
+          className="w-73 h-36"
+          variant="contained"
+          style={JoinButtonStyle}
+        >
+          Join
+        </Button>
+        {/* <EditBtn className="w-50 h-32 text-center text-[14px] leading-[32px]">Edit</EditBtn> */}
       </LeftInfo>
     );
   };
@@ -120,6 +136,32 @@ function Home() {
         </DaoInfo>
         <ContentTabs />
       </Container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={ModalStyle} className="flex flex-col justify-center items-center">
+          <div className="w-500 h-66 leading-[66px] rounded-[20px] border border-[#000] text-[#101828] text-[32px] text-center">
+            Claim the SBT
+          </div>
+          <img className="w-24 h-55" src="/public/arrow.png" />
+          <div className="w-500 h-66 leading-[66px] rounded-[20px] border border-[#000] text-[#101828] text-[32px] text-center">
+            Build for the DAO
+          </div>
+          <img className="w-24 h-55" src="/public/arrow.png" />
+          <div className="w-500 h-66 mb-40 leading-[66px] rounded-[20px] border border-[#000] text-[#101828] text-[32px] text-center">
+            Get proof of donation
+          </div>
+          <ClaimBtn
+            className="w-248 h-60 leading-[60px] text-[24px] text-[#fff] text-center"
+            style={CalimBtnStyle}
+          >
+            Claim
+          </ClaimBtn>
+        </Box>
+      </Modal>
     </>
   );
 }
