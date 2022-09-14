@@ -2,7 +2,8 @@ import DaoListsCard from '@components/DaoListCard';
 import Header from '@components/Header';
 import { useImmer } from '@hooks/useImmer';
 import TextField from '@mui/material/TextField';
-import { Container, Search, DaoListsContainer } from './style';
+import Pagination from '@mui/material/Pagination';
+import { Container, Search, DaoListsContainer, PaginationContainer } from './style';
 
 const DaoLists = () => {
   const [list, setList] = useImmer({
@@ -65,6 +66,9 @@ const DaoLists = () => {
             <DaoListsCard key={item.name} index={index} item={item} />
           ))}
         </DaoListsContainer>
+        <PaginationContainer className="w-full flex justify-end">
+          <Pagination className="w-345 mb-20" count={10} variant="outlined" color="primary" />
+        </PaginationContainer>
       </Container>
     </>
   );

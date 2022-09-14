@@ -8,3 +8,4 @@ export const Search = styled.div`
 export const DaoListsContainer = styled.div`
   background: var(--bgColor);
 `;
+export const PaginationContainer = styled.div``;

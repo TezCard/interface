@@ -46,7 +46,7 @@ const DaoListsCard = props => {
         className="h-136 rounded-tl-[14px] rounded-tr-[14px]"
         style={topAreaBgColorStyle}
       ></TopArea>
-      <BottomArea className="h-314 rounded-bl-[14px] rounded-br-[14px]">
+      <BottomArea className="h-254 rounded-bl-[14px] rounded-br-[14px]">
         <DaoName className="w-350 h-24 leading-[24px] text-[18px] text-[#101828] text-center m-auto mt-60">
           Dao 1
         </DaoName>
