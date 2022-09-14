@@ -6,3 +6,6 @@ export const TopArea = styled.div``;
 export const BottomArea = styled.div``;
 export const Avatar = styled.div``;
 export const DaoName = styled.div``;
+export const DaoTagContainer = styled.div``;
+export const DaoTagItem = styled.div``;
+export const DaoDesc = styled.div``;
