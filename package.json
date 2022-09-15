@@ -14,7 +14,6 @@
   "devDependencies": {
     "@swc/core": "^1.2.247",
     "@swc/helpers": "^0.4.11",
-    "@taquito/taquito": "^13.0.1",
     "@types/earcut": "^2.1.1",
     "@types/node": "^18.7.14",
     "@types/react": "^18.0.18",
@@ -79,7 +78,9 @@
     "@mmfcc/hooks": "1.9.6",
     "@mui/icons-material": "^5.10.3",
     "@mui/material": "^5.10.3",
+    "@taquito/taquito": "^13.0.1",
     "@taquito/beacon-wallet": "^13.0.1",
+    "@taquito/tzip16": "^14.0.0",
     "@temple-wallet/dapp": "^7.0.0",
     "@type-challenges/utils": "^0.1.1",
     "buffer": "^6.0.3",

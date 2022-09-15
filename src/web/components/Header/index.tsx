@@ -6,8 +6,9 @@ import { TopHeader, Slogan, RightBtn, walletButtonStyle, Content } from './style
 import { ReactSVG } from 'react-svg';
 import { NetworkType, BeaconEvent, defaultEventCallbacks } from '@airgap/beacon-sdk';
 import ConnectWallet from '@components/ConnectWallet';
-import { TezosToolkit, WalletProvider } from '@taquito/taquito';
+import { RpcReadAdapter, TezosToolkit, WalletProvider } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
+import { Tzip16Module, tzip16, bytes2Char, MichelsonStorageView } from '@taquito/tzip16';
 // import { TempleWallet } from '@temple-wallet/dapp';
 import { getCurretnRoute } from '@utils/getCurrentRoute';
 import * as IPFS from 'ipfs-core';
@@ -25,7 +26,8 @@ const Header = () => {
       const options = {
         name: 'MyAwesomeDapp',
         iconUrl: 'https://tezostaquito.io/img/favicon.svg',
-        preferredNetwork: NetworkType.MAINNET, //'mainnet',
+        // preferredNetwork: NetworkType.MAINNET, //'mainnet',
+        preferredNetwork: NetworkType.GHOSTNET, //'mainnet',
         disableDefaultEvents: true, // Disable all events / UI. This also disables the pairing alert.
         eventHandlers: {
           [BeaconEvent.PAIR_INIT]: {
@@ -43,6 +45,26 @@ const Header = () => {
       const activeAccount = await wallet?.client?.getActiveAccount();
       console.log('activeAccount', activeAccount, wallet);
       if (activeAccount) {
+        // 方式1
+        const contractAddress = 'KT1W759vkCHpDtifi2UF8NonPKDFQEB1TquX';
+        const contract = await tezos.wallet.at(contractAddress, tzip16);
+
+        console.log('contract', contract);
+        // const res = await contract.tzip16().metadataViews();
+        const res = await contract.tzip16().getMetadata();
+        console.log('metadataViews', res);
+        // 方式 2
+        // tezos.wallet
+        //   .at(contractAddress, tzip16)
+        //   .then(wallet => {
+        //     console.log(`Fetching the metadata for ${contractAddress}...`);
+        //     return wallet.tzip16().getMetadata();
+        //   })
+        //   .then(metadata => {
+        //     console.log(JSON.stringify(metadata, null, 2));
+        //   })
+        //   .catch(error => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
+
         if (activeAccount.address !== obj.address) {
           setObj((draft: StoreType) => {
             draft.address = activeAccount.address;
@@ -57,8 +79,9 @@ const Header = () => {
         // const tezos = new TezosToolkit('https://api.tez.ie/rpc/mainnet');
         const newTezos: TezosToolkit = tezos
           ? tezos
-          : new TezosToolkit('https://mainnet-tezos.giganode.io');
-
+          : new TezosToolkit('https://rpc.ghostnet.teztnets.xyz');
+        // : new TezosToolkit('https://mainnet-tezos.giganode.io');
+        newTezos.addExtension(new Tzip16Module());
         const acAccount = await walletInstance?.client?.getActiveAccount();
         if (acAccount) {
           setObj((draft: StoreType) => {
@@ -110,21 +133,21 @@ const Header = () => {
       .catch(error => console.log(JSON.stringify(error)));
   };
 
-  // const handleDisconnect = async () => {
-  //   const { wallet, tezos } = obj;
-  //   await wallet.clearActiveAccount();
-  //   setObj((draft: StoreType) => {
-  //     draft.address = '';
-  //     draft.isConnected = false;
-  //   });
-  //   tezos.setWalletProvider({} as WalletProvider);
-  //   console.log('disconnect ing');
-  //   if (wallet) {
-  //     await wallet.client.removeAllAccounts();
-  //     await wallet.client.removeAllPeers();
-  //     await wallet.client.destroy();
-  //   }
-  // };
+  const handleDisconnect = async () => {
+    const { wallet, tezos } = obj;
+    await wallet.clearActiveAccount();
+    setObj((draft: StoreType) => {
+      draft.address = '';
+      draft.isConnected = false;
+    });
+    tezos.setWalletProvider({} as WalletProvider);
+    console.log('disconnect ing');
+    if (wallet) {
+      await wallet.client.removeAllAccounts();
+      await wallet.client.removeAllPeers();
+      await wallet.client.destroy();
+    }
+  };
   return (
     <TopHeader>
       <Content>
@@ -138,7 +161,7 @@ const Header = () => {
           {currRoute !== MenuRouteConfig['0'].route && (
             <ConnectWallet onConnect={handleConnectWallet} />
           )}
-          {/* <div onClick={handleDisconnect}>disconnect</div> */}
+          <div onClick={handleDisconnect}>disconnect</div>
         </RightBtn>
       </Content>
     </TopHeader>
