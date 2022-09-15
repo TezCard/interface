@@ -9,7 +9,7 @@ import ConnectWallet from '@components/ConnectWallet';
 import { RpcReadAdapter, TezosToolkit, WalletProvider } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { Tzip16Module, tzip16, bytes2Char, MichelsonStorageView } from '@taquito/tzip16';
-// import { TempleWallet } from '@temple-wallet/dapp';
+import { TempleWallet } from '@temple-wallet/dapp';
 import { getCurretnRoute } from '@utils/getCurrentRoute';
 import * as IPFS from 'ipfs-core';
 // import { create } from 'ipfs-http-client';
@@ -50,7 +50,7 @@ const Header = () => {
         const contractAddress = 'KT1UTUJFhYW8qNoTU3SxQfmGL61tX6qNLwRz';
         // 方式1
         const contract = await tezos.wallet.at(contractAddress, tzip16);
-        console.log('contract', contract);
+        console.log('contract', contract.methods);
         // const res = await contract.tzip16().metadataViews();
         const metadata = await contract.tzip16().getMetadata();
         console.log('metadataViews', metadata);
