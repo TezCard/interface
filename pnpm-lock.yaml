@@ -14,8 +14,8 @@ specifiers:
   '@mui/material': ^5.10.3
   '@swc/core': ^1.2.247
   '@swc/helpers': ^0.4.11
-  '@taquito/beacon-wallet': ^13.0.1
-  '@taquito/taquito': ^13.0.1
+  '@taquito/beacon-wallet': ^14.0.0
+  '@taquito/taquito': ^14.0.0
   '@taquito/tzip16': ^14.0.0
   '@temple-wallet/dapp': ^7.0.0
   '@type-challenges/utils': ^0.1.1
@@ -110,10 +110,10 @@ dependencies:
   '@mmfcc/hooks': 1.9.6_jmeotboeqduv4ejs6dufhmbm6a
   '@mui/icons-material': 5.10.3_uvkfhlgw25w6lhmyous67zd66u
   '@mui/material': 5.10.3_vbxcdxy3bftsefaguotlgalomu
-  '@taquito/beacon-wallet': 13.0.1
-  '@taquito/taquito': 13.0.1
+  '@taquito/beacon-wallet': 14.0.0
+  '@taquito/taquito': 14.0.0
   '@taquito/tzip16': 14.0.0
-  '@temple-wallet/dapp': 7.0.0_@taquito+taquito@13.0.1
+  '@temple-wallet/dapp': 7.0.0_@taquito+taquito@14.0.0
   '@type-challenges/utils': 0.1.1
   buffer: 6.0.3
   crypto-browserify: 3.12.0
@@ -2777,22 +2777,13 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@taquito/beacon-wallet/13.0.1:
-    resolution: {integrity: sha512-HBJoIwVqV4UorqCzLYaKT1QSA2OoujhBidENYhPE+Km/w7ArGLcPCTrhNvtfViw8xyhG63/hlFztLC3mm0M8iA==}
+  /@taquito/beacon-wallet/14.0.0:
+    resolution: {integrity: sha512-v9Fyx5heMOHbZGCWnVPqJqyrHxXgbtH8H4RBOnNI8m7KAq9RtQLwitj6FONcXpEcNzmMzgbIDeom/oizoOfOSQ==}
     engines: {node: '>=6.0.0'}
     dependencies:
       '@airgap/beacon-dapp': 3.1.4
-      '@taquito/taquito': 13.0.1
+      '@taquito/taquito': 14.0.0
       libsodium-wrappers: 0.7.9
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /@taquito/http-utils/13.0.1:
-    resolution: {integrity: sha512-eHzd0HSL3qX6bOOSaQClm+0XmpbSNcJP69uzaBJwfXo7ntQR1bUfGLn6+1Hgsk/lJ0JxakD2PDA4aaeajHvyPw==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      axios: 0.26.1
     transitivePeerDependencies:
       - debug
     dev: false
@@ -2806,14 +2797,6 @@ packages:
       - debug
     dev: false
 
-  /@taquito/local-forging/13.0.1:
-    resolution: {integrity: sha512-2n1ryUzHBIOHiQYRO7ELQaurjoNhJ3KUUcX0dAnFs3xVxUBugHgDPot+T+1rNZDdLVhTS6mmK796xrWDGnO6xw==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      '@taquito/utils': 13.0.1
-      bignumber.js: 9.1.0
-    dev: false
-
   /@taquito/local-forging/14.0.0:
     resolution: {integrity: sha512-Nm0xGmS1Jzd+tU0a/8Y8XuTghbiPBgHDLo+e4141TK3OAwTzOw0an+w3xK9QVfzvxfIcZBSMjeMZzOwDdiqkJQ==}
     engines: {node: '>=6.0.0'}
@@ -2822,26 +2805,9 @@ packages:
       bignumber.js: 9.1.0
     dev: false
 
-  /@taquito/michel-codec/13.0.1:
-    resolution: {integrity: sha512-A9MxhDMdTTK31ty5Ke2wg4wkt7F/Y++tD8wq9YIFJzxt+MkpWX5b2i1f7yHXPsK/81YiGAi/LDamLtLCekY1LA==}
-    engines: {node: '>=6.0.0'}
-    dev: false
-
   /@taquito/michel-codec/14.0.0:
     resolution: {integrity: sha512-ftnBvUVddlHBqvQbGPHEb26KrS4lIcaZ1eIpYJWiz+akb4Pcfyq7j/OEsDZbB7Pl2FP9hqu7ZygOF34zY6Lrtw==}
     engines: {node: '>=6.0.0'}
-    dev: false
-
-  /@taquito/michelson-encoder/13.0.1:
-    resolution: {integrity: sha512-U80vswMHlEDQUjvARZScIKrSZkIjxdYtDLvHu4oRZ9wTqTXSlj+t64G5QmZwTEJRQkbzfhsOOr6vL40ztL0tzw==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      '@taquito/rpc': 13.0.1
-      '@taquito/utils': 13.0.1
-      bignumber.js: 9.1.0
-      fast-json-stable-stringify: 2.1.0
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /@taquito/michelson-encoder/14.0.0:
@@ -2856,17 +2822,6 @@ packages:
       - debug
     dev: false
 
-  /@taquito/rpc/13.0.1:
-    resolution: {integrity: sha512-f2Z0qzHB1ERLU5kewmXh3rAD84qIYthSjmAo04sWFbuaMgGW1HxMJKJ/EtL4s4VgoDUwahSwfATmVzmKg57BSw==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      '@taquito/http-utils': 13.0.1
-      '@taquito/utils': 13.0.1
-      bignumber.js: 9.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /@taquito/rpc/14.0.0:
     resolution: {integrity: sha512-FMfb80sA+VJwNx8OTNN07boDAt2roISqLLCUgmOIwy/cFDqhII7gdS4aYWJWqlKbdPKCPqh3a3ZQD1X/jyQHOA==}
     engines: {node: '>=6.0.0'}
@@ -2874,23 +2829,6 @@ packages:
       '@taquito/http-utils': 14.0.0
       '@taquito/utils': 14.0.0
       bignumber.js: 9.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /@taquito/taquito/13.0.1:
-    resolution: {integrity: sha512-xNtcwKsOCHSkURO9G2VhKSeI9q0qh5/OkVuYe6KM0Fo40FthXNqq205I/FTJzu5E1Q73J7cFqA7FHqUrv276gw==}
-    engines: {node: '>=6.0.0'}
-    requiresBuild: true
-    dependencies:
-      '@taquito/http-utils': 13.0.1
-      '@taquito/local-forging': 13.0.1
-      '@taquito/michel-codec': 13.0.1
-      '@taquito/michelson-encoder': 13.0.1
-      '@taquito/rpc': 13.0.1
-      '@taquito/utils': 13.0.1
-      bignumber.js: 9.1.0
-      rxjs: 6.6.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -2927,20 +2865,6 @@ packages:
       - debug
     dev: false
 
-  /@taquito/utils/13.0.1:
-    resolution: {integrity: sha512-uRtsl4EATlVJ1UnNUiAEoibFFyexGLDLz02CBHoBrcWjqrZdj3AxA+TO63E2kWn/JmT2FM0Sqaqbm555lj4tow==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      '@stablelib/blake2b': 1.0.1
-      '@stablelib/ed25519': 1.0.3
-      '@types/bs58check': 2.1.0
-      blakejs: 1.2.1
-      bs58check: 2.1.2
-      buffer: 6.0.3
-      elliptic: 6.5.4
-      typedarray-to-buffer: 4.0.0
-    dev: false
-
   /@taquito/utils/14.0.0:
     resolution: {integrity: sha512-0RSHn/CzbcbMdldJJIlXyxOvAajwmL6iPKJ6NaRyYJqqLM2CxYjG72KpXVv716pCMV1MbIWsOAr9FKbxW73PsA==}
     engines: {node: '>=6.0.0'}
@@ -2956,12 +2880,12 @@ packages:
       typedarray-to-buffer: 4.0.0
     dev: false
 
-  /@temple-wallet/dapp/7.0.0_@taquito+taquito@13.0.1:
+  /@temple-wallet/dapp/7.0.0_@taquito+taquito@14.0.0:
     resolution: {integrity: sha512-JbpXompkVDh4Wl0Oa+i8iKEGinFqYPTM4uuqw8eBH57vHxq52W5K3NSgVaKjfyWms9UYQ8xOfsUOzzUVWSYtxA==}
     peerDependencies:
       '@taquito/taquito': ^12.0.0
     dependencies:
-      '@taquito/taquito': 13.0.1
+      '@taquito/taquito': 14.0.0
       nanoid: 3.3.4
     dev: false
 
