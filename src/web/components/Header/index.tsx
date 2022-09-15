@@ -106,9 +106,12 @@ const Header = () => {
   };
   const handleConnectWallet = async () => {
     const { wallet, tezos, isConnected } = obj;
+    console.log('wallet', wallet);
+    console.log('tezos', tezos);
     if (wallet === undefined && tezos === undefined) {
       return;
     }
+    console.log('isConnected', isConnected);
     if (isConnected) {
       if (getCurretnRoute() === MenuRouteConfig.profile.route) {
         return;
@@ -147,12 +150,13 @@ const Header = () => {
       draft.isConnected = false;
     });
     tezos.setWalletProvider({} as WalletProvider);
-    console.log('disconnect ing');
-    if (wallet) {
-      await wallet.client.removeAllAccounts();
-      await wallet.client.removeAllPeers();
-      await wallet.client.destroy();
-    }
+    console.log('disconnect done');
+    // if (wallet) {
+    //   await wallet.client.removeAllAccounts();
+    //   await wallet.client.removeAllPeers();
+    //   await wallet.client.destroy();
+    //   console.log('disconnect done');
+    // }
   };
   return (
     <TopHeader>
