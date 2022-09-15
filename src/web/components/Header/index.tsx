@@ -17,44 +17,45 @@ import { useAtom } from 'jotai';
 import { store } from '@store/jotaiStore';
 import { StoreType } from '@type/index';
 import { useImmer } from '@hooks/useImmer';
+const tzip16module = new Tzip16Module();
+const options = {
+  name: 'MyAwesomeDapp',
+  iconUrl: 'https://tezostaquito.io/img/favicon.svg',
+  // preferredNetwork: NetworkType.MAINNET, //'mainnet',
+  preferredNetwork: NetworkType.GHOSTNET, //'mainnet',
+  disableDefaultEvents: true, // Disable all events / UI. This also disables the pairing alert.
+  eventHandlers: {
+    [BeaconEvent.PAIR_INIT]: {
+      handler: defaultEventCallbacks.PAIR_INIT,
+    },
+    PERMISSION_REQUEST_SUCCESS: {
+      handler: async data => {
+        console.log('permission data:', data);
+      },
+    },
+  },
+};
+
 const Header = () => {
   const [obj, setObj] = useAtom<StoreType>(store);
   const [currRoute] = useImmer<string>(getCurretnRoute());
   useEffect(() => {
     const { wallet, tezos } = obj;
     (async () => {
-      const options = {
-        name: 'MyAwesomeDapp',
-        iconUrl: 'https://tezostaquito.io/img/favicon.svg',
-        // preferredNetwork: NetworkType.MAINNET, //'mainnet',
-        preferredNetwork: NetworkType.GHOSTNET, //'mainnet',
-        disableDefaultEvents: true, // Disable all events / UI. This also disables the pairing alert.
-        eventHandlers: {
-          [BeaconEvent.PAIR_INIT]: {
-            handler: defaultEventCallbacks.PAIR_INIT,
-          },
-          PERMISSION_REQUEST_SUCCESS: {
-            handler: async data => {
-              console.log('permission data:', data);
-            },
-          },
-        },
-      };
       // check if the user has already paired their wallet
       // This code should be called every time the page is loaded or refreshed to see if the user has already connected to a wallet.
       const activeAccount = await wallet?.client?.getActiveAccount();
       console.log('activeAccount', activeAccount, wallet);
       if (activeAccount) {
+        const contractAddress = 'KT1UTUJFhYW8qNoTU3SxQfmGL61tX6qNLwRz';
         // 方式1
-        const contractAddress = 'KT1W759vkCHpDtifi2UF8NonPKDFQEB1TquX';
         const contract = await tezos.wallet.at(contractAddress, tzip16);
-
         console.log('contract', contract);
         // const res = await contract.tzip16().metadataViews();
-        const res = await contract.tzip16().getMetadata();
-        console.log('metadataViews', res);
+        const metadata = await contract.tzip16().getMetadata();
+        console.log('metadataViews', metadata);
         // 方式 2
-        // tezos.wallet
+        // tezos.contract
         //   .at(contractAddress, tzip16)
         //   .then(wallet => {
         //     console.log(`Fetching the metadata for ${contractAddress}...`);
@@ -81,7 +82,7 @@ const Header = () => {
           ? tezos
           : new TezosToolkit('https://rpc.ghostnet.teztnets.xyz');
         // : new TezosToolkit('https://mainnet-tezos.giganode.io');
-        newTezos.addExtension(new Tzip16Module());
+        newTezos.addExtension(tzip16module);
         const acAccount = await walletInstance?.client?.getActiveAccount();
         if (acAccount) {
           setObj((draft: StoreType) => {
@@ -118,7 +119,12 @@ const Header = () => {
       }
     }
     // connects the wallet to the Tezos network
-    await wallet?.requestPermissions();
+    await wallet?.requestPermissions({
+      network: {
+        type: NetworkType.GHOSTNET,
+        rpcUrl: 'https://rpc.ghostnet.teztnets.xyz',
+      },
+    });
     const userAddress = await wallet?.getPKH();
     setObj((draft: StoreType) => {
       draft.address = userAddress;
