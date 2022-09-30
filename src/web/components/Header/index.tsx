@@ -47,13 +47,14 @@ const Header = () => {
       const activeAccount = await wallet?.client?.getActiveAccount();
       console.log('activeAccount', activeAccount, wallet);
       if (activeAccount) {
-        const contractAddress = 'KT1UTUJFhYW8qNoTU3SxQfmGL61tX6qNLwRz';
-        // 方式1
-        const contract = await tezos.wallet.at(contractAddress, tzip16);
-        console.log('contract', contract.methods);
-        // const res = await contract.tzip16().metadataViews();
-        const metadata = await contract.tzip16().getMetadata();
-        console.log('metadataViews', metadata);
+        // const contractAddress = 'KT1Hsc42Z7NJnqNsZVW5YQukUvCJXHfxgkoq';
+        const contractAddress = 'KT1KQF6woLv7uYaHC5yAE3b5NzXTBpdY1CkH';
+        // // 方式1
+        // const contract = await tezos.wallet.at(contractAddress, tzip16);
+
+        // // const res = await contract.tzip16().metadataViews();
+        // const metadata = await contract.tzip16().getMetadata();
+        // console.log('metadataViews', metadata);
         // 方式 2
         // tezos.contract
         //   .at(contractAddress, tzip16)
@@ -65,7 +66,37 @@ const Header = () => {
         //     console.log(JSON.stringify(metadata, null, 2));
         //   })
         //   .catch(error => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
-
+        // 方式3
+        tezos.wallet
+          .at(contractAddress)
+          .then(contract => {
+            console.log('contract', contract);
+            console.log('list_organization', contract.contractViews.list_organization());
+            contract.storage().then(storage => {
+              console.log('storage', storage);
+              // const fibPosition = storage.toNumber() + 1;
+              // console.log(
+              //   `Calling the default method of will call the view fib of  with ${fibPosition}.`
+              // );
+              // return contract.methodsObject
+              //   .default({ 0: fibPosition, 1: contractTopLevelViews })
+              //   .send()
+              //   .then(op => {
+              //     console.log(`Waiting for ${op.opHash} to be confirmed...`);
+              //     return op
+              //       .confirmation()
+              //       .then(() => op.opHash)
+              //       .then(() => {
+              //         return contract.storage().then(finalStorage => {
+              //           console.log(
+              //             `The storage is now ${finalStorage} which corresponds to the value of the Fibonacci sequence at position ${fibPosition}.`
+              //           );
+              //         });
+              //       });
+              //   });
+            });
+          })
+          .catch(error => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
         if (activeAccount.address !== obj.address) {
           setObj((draft: StoreType) => {
             draft.address = activeAccount.address;
@@ -171,7 +202,7 @@ const Header = () => {
           {currRoute !== MenuRouteConfig['0'].route && (
             <ConnectWallet onConnect={handleConnectWallet} />
           )}
-          <div onClick={handleDisconnect}>disconnect</div>
+          {/* <div onClick={handleDisconnect}>disconnect</div> */}
         </RightBtn>
       </Content>
     </TopHeader>
